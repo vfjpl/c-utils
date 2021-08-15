@@ -18,7 +18,10 @@ char* util_strcpy_pn(char* dest, const char* src, size_t size)
 
 size_t util_strcpy_ln(char* dest, const char* src, size_t size)
 {
-	return util_strcpy_pn(dest, src, size) - dest;
+	--size;
+	char* ret = stpncpy(dest, src, size);
+	dest[size] = '\0';
+	return ret - dest;
 }
 
 void util_fputs(const char* str, FILE* stream)
