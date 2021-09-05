@@ -1,5 +1,7 @@
+#include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdint.h>
 
 void util_strcpy_n(char* dest, const char* src, size_t size)
 {
@@ -28,4 +30,9 @@ void util_fputs(const char* str, FILE* stream)
 {
 	fputs(str, stream);
 	putc('\n', stream);
+}
+
+uint32_t util_atou32(const char* str)
+{
+	return strtoul(str, NULL, 0);
 }
