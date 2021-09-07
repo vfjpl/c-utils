@@ -32,6 +32,11 @@ void util_fputs(const char* str, FILE* stream)
 	putc('\n', stream);
 }
 
+void util_puts(const char* str)
+{
+	fputs(str, stdout);
+}
+
 uint32_t util_atou32(const char* str)
 {
 	return strtoul(str, NULL, 0);
