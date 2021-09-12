@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdint.h>
+#include <time.h>
 
 void util_strcpy_n(char* dest, const char* src, size_t size)
 {
@@ -40,4 +41,9 @@ void util_puts(const char* str)
 uint32_t util_atou32(const char* str)
 {
 	return strtoul(str, NULL, 0);
+}
+
+uint32_t util_time_u32(void)
+{
+	return time(NULL);
 }
