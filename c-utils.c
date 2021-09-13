@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include <sys/time.h>
 #include <time.h>
 
 uint32_t util_atou32(const char* str)
@@ -47,13 +46,6 @@ void util_fputs(const char* str, FILE* stream)
 void util_puts(const char* str)
 {
 	fputs(str, stdout);
-}
-
-struct timeval util_gettimeofday(void)
-{
-	struct timeval ret;
-	gettimeofday(&ret, NULL);
-	return ret;
 }
 
 uint32_t util_time_u32(void)
