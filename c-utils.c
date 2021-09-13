@@ -35,7 +35,7 @@ size_t util_strcpy_ln(char* dest, const char* src, size_t size)
 
 size_t util_strcpy_l(char* dest, const char* src)
 {
-	return stpcpy(dest, str) - dest;
+	return stpcpy(dest, src) - dest;
 }
 
 void util_fputs(const char* str, FILE* stream)
