@@ -1,8 +1,14 @@
+#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include <stdint.h>
+#include <sys/time.h>
 #include <time.h>
+
+uint32_t util_atou32(const char* str)
+{
+	return strtoul(str, NULL, 0);
+}
 
 void util_strcpy_n(char* dest, const char* src, size_t size)
 {
@@ -38,9 +44,11 @@ void util_puts(const char* str)
 	fputs(str, stdout);
 }
 
-uint32_t util_atou32(const char* str)
+struct timeval util_gettimeofday(void)
 {
-	return strtoul(str, NULL, 0);
+	struct timeval ret;
+	gettimeofday(&ret, NULL);
+	return ret;
 }
 
 uint32_t util_time_u32(void)
