@@ -37,6 +37,20 @@ size_t util_strcpy_l(char* dest, const char* src)
 	return stpcpy(dest, src) - dest;
 }
 
+char* util_read_file(const char* name)
+{
+	FILE* file = fopen(name, "r");
+	if(!file) return NULL;
+	fseek(file, 0, SEEK_END);
+	long size = ftell(file);
+	rewind(file);
+	char* buffer = malloc(size + 1);
+	fread(buffer, sizeof(char), size, file);
+	buffer[size] = '\0';
+	fclose(file);
+	return buffer;
+}
+
 void util_fputs(const char* str, FILE* stream)
 {
 	fputs(str, stream);
