@@ -12,8 +12,8 @@ char* util_read_file(const char* name);
 void util_fputs(const char* str, FILE* stream);
 void util_puts(const char* str);
 
-clock_t util_clock_monotonic(void);
 uint32_t util_time_u32(void);
+clock_t util_clock_monotonic(void);
 struct timeval util_gettimeofday(void);
 
 #endif // C-UTILS_H_INCLUDED
