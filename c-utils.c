@@ -71,3 +71,7 @@ struct timeval util_gettimeofday(void)
 	gettimeofday(&ret, NULL);
 	return ret;
 }
+clock_t util_clock_monotonic(void)
+{
+	return times(NULL);
+}
