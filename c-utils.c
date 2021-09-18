@@ -63,13 +63,13 @@ void util_puts(const char* str)
 }
 
 
-clock_t util_clock_monotonic(void)
-{
-	return times(NULL);
-}
 uint32_t util_time_u32(void)
 {
 	return time(NULL);
+}
+clock_t util_clock_monotonic(void)
+{
+	return times(NULL);
 }
 struct timeval util_gettimeofday(void)
 {
