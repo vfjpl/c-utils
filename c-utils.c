@@ -1,8 +1,4 @@
-#include <stdint.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <time.h>
+#include "c-utils.h>
 
 
 uint32_t util_atou32(const char* str)
