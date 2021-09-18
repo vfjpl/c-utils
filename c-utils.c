@@ -4,18 +4,23 @@
 #include <stdio.h>
 #include <time.h>
 
+
 uint32_t util_atou32(const char* str)
 {
 	return strtoul(str, NULL, 0);
 }
 
+
+size_t util_strcpy_l(char* dest, const char* src)
+{
+	return stpcpy(dest, src) - dest;
+}
 void util_strcpy_n(char* dest, const char* src, size_t size)
 {
 	--size;
 	strncpy(dest, src, size);
 	dest[size] = '\0';
 }
-
 char* util_strcpy_pn(char* dest, const char* src, size_t size)
 {
 	--size;
@@ -23,7 +28,6 @@ char* util_strcpy_pn(char* dest, const char* src, size_t size)
 	dest[size] = '\0';
 	return ret;
 }
-
 size_t util_strcpy_ln(char* dest, const char* src, size_t size)
 {
 	--size;
@@ -32,10 +36,6 @@ size_t util_strcpy_ln(char* dest, const char* src, size_t size)
 	return end - dest;
 }
 
-size_t util_strcpy_l(char* dest, const char* src)
-{
-	return stpcpy(dest, src) - dest;
-}
 
 char* util_read_file(const char* name)
 {
@@ -50,19 +50,24 @@ char* util_read_file(const char* name)
 	fclose(file);
 	return buffer;
 }
-
 void util_fputs(const char* str, FILE* stream)
 {
 	fputs(str, stream);
 	putc('\n', stream);
 }
-
 void util_puts(const char* str)
 {
 	fputs(str, stdout);
 }
 
+
 uint32_t util_time_u32(void)
 {
 	return time(NULL);
+}
+struct timeval util_gettimeofday(void)
+{
+	struct timeval ret;
+	gettimeofday(&ret, NULL);
+	return ret;
 }
