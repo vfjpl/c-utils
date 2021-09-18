@@ -1,4 +1,10 @@
-#include "c-utils.h"
+#include <sys/times.h>
+#include <sys/time.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+#include <time.h>
 
 
 uint32_t util_atou32(const char* str)
