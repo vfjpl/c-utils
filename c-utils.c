@@ -46,7 +46,7 @@ char* util_read_file(const char* name)
 	fseek(file, 0, SEEK_END);
 	long size = ftell(file);
 	rewind(file);
-	char* buffer = malloc(size + 1);
+	char* buffer = (char*)malloc(size + 1);
 	fread(buffer, sizeof(char), size, file);
 	buffer[size] = '\0';
 	fclose(file);
