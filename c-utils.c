@@ -67,13 +67,13 @@ uint32_t util_time_u32(void)
 {
 	return time(NULL);
 }
-clock_t util_clock_monotonic(void)
-{
-	return times(NULL);
-}
 struct timeval util_gettimeofday(void)
 {
 	struct timeval ret;
 	gettimeofday(&ret, NULL);
 	return ret;
+}
+clock_t util_clock_monotonic(void)
+{
+	return times(NULL);
 }
