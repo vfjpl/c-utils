@@ -1,5 +1,6 @@
 #include <sys/times.h>
 #include <sys/time.h>
+#include <unistd.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
@@ -76,4 +77,8 @@ struct timeval util_gettimeofday(void)
 clock_t util_clock_monotonic(void)
 {
 	return times(NULL);
+}
+clock_t util_clock_monotonic_elapsed_ms(clock_t old)
+{
+	return ((times(NULL) - old) * 1000) / sysconf(_SC_CLK_TCK);
 }
