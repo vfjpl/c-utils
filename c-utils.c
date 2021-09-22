@@ -68,12 +68,23 @@ uint32_t util_time_u32(void)
 {
 	return time(NULL);
 }
-struct timeval util_gettimeofday(void)
+void util_gettimeofday_ptr(struct timeval* tv)
 {
-	struct timeval ret;
-	gettimeofday(&ret, NULL);
-	return ret;
+	gettimeofday(tv, NULL);
 }
+struct timeval util_gettimeofday_ret(void)
+{
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
+	return tv;
+}
+void util_settimeofday(uint32_t seconds)
+{
+	struct timeval tv = {seconds};
+	settimeofday(&tv, NULL);
+}
+
+
 clock_t util_clock_monotonic(void)
 {
 	return times(NULL);
