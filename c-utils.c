@@ -27,9 +27,9 @@ void util_strcpy_n(char* dest, const char* src, size_t size)
 char* util_strcpy_np(char* dest, const char* src, size_t size)
 {
 	--size;
-	char* ret = stpncpy(dest, src, size);
+	char* end = stpncpy(dest, src, size);
 	dest[size] = '\0';
-	return ret;
+	return end;
 }
 size_t util_strcpy_nl(char* dest, const char* src, size_t size)
 {
