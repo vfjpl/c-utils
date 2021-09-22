@@ -1,6 +1,11 @@
 #ifndef C-UTILS_H_INCLUDED
 #define C-UTILS_H_INCLUDED
 
+#include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+
 
 /// stdlib
 //atoi
@@ -26,8 +31,9 @@ void util_puts(const char* str);
 
 /// time
 uint32_t util_time_u32(void);
-struct timeval util_gettimeofday(void);
-clock_t util_clock_monotonic(void);
+void util_gettimeofday_ptr(struct timeval* tv);
+struct timeval util_gettimeofday_ret(void);
+void util_settimeofday(uint32_t seconds);
 
 
 #endif // C-UTILS_H_INCLUDED
