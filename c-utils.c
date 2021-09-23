@@ -33,10 +33,7 @@ char* util_strcpy_np(char* dest, const char* src, size_t size)
 }
 size_t util_strcpy_nl(char* dest, const char* src, size_t size)
 {
-	--size;
-	char* end = stpncpy(dest, src, size);
-	dest[size] = '\0';
-	return end - dest;
+	return util_strcpy_np(dest, src, size) - dest;
 }
 
 
@@ -75,7 +72,7 @@ void util_gettimeofday_ptr(struct timeval* tv)
 struct timeval util_gettimeofday_ret(void)
 {
 	struct timeval tv;
-	gettimeofday(&tv, NULL);
+	util_gettimeofday_ptr(&tv);
 	return tv;
 }
 void util_settimeofday(uint32_t seconds)
