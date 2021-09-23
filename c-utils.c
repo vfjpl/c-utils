@@ -86,7 +86,7 @@ clock_t util_clock_monotonic(void)
 {
 	return times(NULL);
 }
-clock_t util_clock_monotonic_elapsed_ms(clock_t old)
+clock_t util_clock_monotonic_elapsed_ms(clock_t from)
 {
-	return ((times(NULL) - old) * 1000) / sysconf(_SC_CLK_TCK);
+	return ((util_clock_monotonic() - from) * 1000) / sysconf(_SC_CLK_TCK);
 }
