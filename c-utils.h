@@ -37,8 +37,13 @@ void util_gettimeofday_ptr(struct timeval* tv);
 struct timeval util_gettimeofday_ret(void);
 void util_settimeofday(uint32_t seconds);
 
+
+//! clock
+clock_t util_seconds_to_clock_t(clock_t val);
+clock_t util_clock_t_to_seconds(clock_t val);
+clock_t util_milliseconds_to_clock_t(clock_t val);
+clock_t util_clock_t_to_milliseconds(clock_t val);
 clock_t util_clock_monotonic(void);
-clock_t util_clock_monotonic_elapsed_ms(clock_t from);
 
 
 #endif // C-UTILS_H_INCLUDED
