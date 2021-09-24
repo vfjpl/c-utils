@@ -82,11 +82,23 @@ void util_settimeofday(uint32_t seconds)
 }
 
 
+clock_t util_seconds_to_clock_t(clock_t val)
+{
+	return val * sysconf(_SC_CLK_TCK);
+}
+clock_t util_clock_t_to_seconds(clock_t val)
+{
+	return val / sysconf(_SC_CLK_TCK);
+}
+clock_t util_milliseconds_to_clock_t(clock_t val)
+{
+	return util_seconds_to_clock_t(val) / 1000;
+}
+clock_t util_clock_t_to_milliseconds(clock_t val)
+{
+	return util_clock_t_to_seconds(val * 1000);
+}
 clock_t util_clock_monotonic(void)
 {
 	return times(NULL);
-}
-clock_t util_clock_monotonic_elapsed_ms(clock_t from)
-{
-	return ((util_clock_monotonic() - from) * 1000) / sysconf(_SC_CLK_TCK);
 }
