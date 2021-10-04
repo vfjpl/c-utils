@@ -2,6 +2,7 @@
 #define C-UTILS_H_INCLUDED
 
 #include <sys/time.h>
+#include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
@@ -34,7 +35,13 @@ void util_puts(const char* str);
 uint32_t util_time_u32(void);
 void util_gettimeofday_ptr(struct timeval* tv);
 struct timeval util_gettimeofday_ret(void);
-void util_settimeofday(uint32_t seconds);
+void util_settimeofday(uint32_t sec);
+
+
+//! clock_monotonic
+clock_t util_clock_monotonic(void);
+clock_t util_clock_monotonic_future_sec(clock_t sec);
+clock_t util_clock_monotonic_future_msec(clock_t msec);
 
 
 #endif // C-UTILS_H_INCLUDED
