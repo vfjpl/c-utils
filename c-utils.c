@@ -1,5 +1,6 @@
 #include <sys/times.h>
 #include <sys/time.h>
+#include <stdbool.h>
 #include <unistd.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -75,30 +76,38 @@ struct timeval util_gettimeofday_ret(void)
 	util_gettimeofday_ptr(&tv);
 	return tv;
 }
-void util_settimeofday(uint32_t seconds)
+void util_settimeofday(uint32_t sec)
 {
-	struct timeval tv = {seconds};
+	struct timeval tv = {sec};
 	settimeofday(&tv, NULL);
 }
 
 
-clock_t util_seconds_to_clock_t(clock_t val)
+static clock_t util_sec_to_clock_t(clock_t val)
 {
 	return val * sysconf(_SC_CLK_TCK);
 }
-clock_t util_clock_t_to_seconds(clock_t val)
+static clock_t util_clock_t_to_sec(clock_t val)
 {
 	return val / sysconf(_SC_CLK_TCK);
 }
-clock_t util_milliseconds_to_clock_t(clock_t val)
+static clock_t util_msec_to_clock_t(clock_t val)
 {
-	return util_seconds_to_clock_t(val) / 1000;
+	return util_sec_to_clock_t(val) / 1000;
 }
-clock_t util_clock_t_to_milliseconds(clock_t val)
+static clock_t util_clock_t_to_msec(clock_t val)
 {
-	return util_clock_t_to_seconds(val * 1000);
+	return util_clock_t_to_sec(val * 1000);
 }
 clock_t util_clock_monotonic(void)
 {
 	return times(NULL);
+}
+clock_t util_clock_monotonic_future_sec(clock_t sec)
+{
+	return util_sec_to_clock_t(sec) + util_clock_monotonic();
+}
+clock_t util_clock_monotonic_future_msec(clock_t msec)
+{
+	return util_msec_to_clock_t(msec) + util_clock_monotonic();
 }
