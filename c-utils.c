@@ -111,3 +111,7 @@ clock_t util_clock_monotonic_future_msec(clock_t msec)
 {
 	return util_msec_to_clock_t(msec) + util_clock_monotonic();
 }
+clock_t util_clock_monotonic_elapsed_msec(clock_t from)
+{
+	return util_clock_t_to_msec(util_clock_monotonic() - from);
+}
