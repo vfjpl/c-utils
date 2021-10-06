@@ -105,11 +105,11 @@ clock_t util_clock_monotonic(void)
 }
 clock_t util_clock_monotonic_future_sec(clock_t sec)
 {
-	return util_sec_to_clock_t(sec) + util_clock_monotonic();
+	return util_clock_monotonic() + util_sec_to_clock_t(sec);
 }
 clock_t util_clock_monotonic_future_msec(clock_t msec)
 {
-	return util_msec_to_clock_t(msec) + util_clock_monotonic();
+	return util_clock_monotonic() + util_msec_to_clock_t(msec);
 }
 clock_t util_clock_monotonic_elapsed_msec(clock_t from)
 {
