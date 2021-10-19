@@ -13,6 +13,11 @@ uint32_t util_atou32(const char* str)
 {
 	return strtoul(str, NULL, 0);
 }
+int util_div_ceil(int numerator, int denominator)
+{
+	div_t result = div(numerator, denominator);
+	return result.quot + (bool)result.rem;
+}
 
 
 size_t util_strcpy_l(char* dest, const char* src)
