@@ -11,6 +11,7 @@
 
 //! stdlib
 uint32_t util_atou32(const char* str);
+int util_div_ceil(int numerator, int denominator);
 
 
 //! string
