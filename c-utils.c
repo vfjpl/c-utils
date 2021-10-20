@@ -13,9 +13,9 @@ uint32_t util_atou32(const char* str)
 {
 	return strtoul(str, NULL, 0);
 }
-int util_div_ceil(int numerator, int denominator)
+int util_div_ceil(int numer, int denom)
 {
-	div_t result = div(numerator, denominator);
+	div_t result = div(numer, denom);
 	return result.quot + (bool)result.rem;
 }
 
