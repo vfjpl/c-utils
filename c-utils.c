@@ -104,19 +104,8 @@ static clock_t util_clock_t_to_msec(clock_t val)
 {
 	return util_clock_t_to_sec(val * 1000);
 }
+
 clock_t util_clock_monotonic(void)
 {
 	return times(NULL);
-}
-clock_t util_clock_monotonic_future_sec(clock_t sec)
-{
-	return util_clock_monotonic() + util_sec_to_clock_t(sec);
-}
-clock_t util_clock_monotonic_future_msec(clock_t msec)
-{
-	return util_clock_monotonic() + util_msec_to_clock_t(msec);
-}
-clock_t util_clock_monotonic_elapsed_msec(clock_t from)
-{
-	return util_clock_t_to_msec(util_clock_monotonic() - from);
 }
