@@ -36,9 +36,6 @@ void util_settimeofday(uint32_t sec);
 
 //! clock_monotonic
 clock_t util_clock_monotonic(void);
-clock_t util_clock_monotonic_future_sec(clock_t sec);
-clock_t util_clock_monotonic_future_msec(clock_t msec);
-clock_t util_clock_monotonic_elapsed_msec(clock_t from);
 
 
 #endif // C-UTILS_H_INCLUDED
