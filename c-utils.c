@@ -41,6 +41,12 @@ size_t util_strcpy_nl(char* dest, const char* src, size_t size)
 {
 	return util_strcpy_np(dest, src, size) - dest;
 }
+const char* util_str_after(const char* str, const char* set)
+{
+	str += strcspn(str, set);
+	str += strspn(str, set);
+	return str;
+}
 
 
 char* util_read_file(const char* name)
