@@ -1,3 +1,7 @@
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
+#endif // _GNU_SOURCE
+
 #include <sys/times.h>
 #include <sys/time.h>
 #include <stdbool.h>
@@ -9,17 +13,25 @@
 #include <time.h>
 
 
-uint32_t util_atou32(const char* str)
+uint32_t util_atou(const char* str)
 {
 	return strtoul(str, NULL, 0);
 }
-int util_div_ceil(int numer, int denom)
+int util_div_upward(int numer, int denom)
 {
 	div_t result = div(numer, denom);
 	return result.quot + (bool)result.rem;
 }
 
 
+void util_strcpy(char* dest, const char* src)
+{
+	strcpy(dest, src);
+}
+char* util_strcpy_p(char* dest, const char* src)
+{
+	return stpcpy(dest, src);
+}
 size_t util_strcpy_l(char* dest, const char* src)
 {
 	return stpcpy(dest, src) - dest;
@@ -41,15 +53,19 @@ size_t util_strcpy_nl(char* dest, const char* src, size_t size)
 {
 	return util_strcpy_np(dest, src, size) - dest;
 }
-const char* util_str_after(const char* str, const char* set)
+const char* util_strafter(const char* str, const char* set)
 {
 	str += strcspn(str, set);
 	str += strspn(str, set);
 	return str;
 }
+void util_memcpy_swab(void* dest, const void* src, size_t size)
+{
+	swab(src, dest, size);
+}
 
 
-char* util_read_file(const char* name)
+char* util_readfile(const char* name)
 {
 	FILE* file = fopen(name, "r");
 	if(!file) return NULL;
@@ -62,30 +78,15 @@ char* util_read_file(const char* name)
 	fclose(file);
 	return buffer;
 }
-void util_fputs(const char* str, FILE* stream)
-{
-	fputs(str, stream);
-	putc('\n', stream);
-}
-void util_puts(const char* str)
-{
-	fputs(str, stdout);
-}
 
 
-uint32_t util_time_u32(void)
+uint32_t util_time(void)
 {
 	return time(NULL);
 }
-void util_gettimeofday_ptr(struct timeval* tv)
+void util_gettimeofday(struct timeval* tv)
 {
 	gettimeofday(tv, NULL);
-}
-struct timeval util_gettimeofday_ret(void)
-{
-	struct timeval tv;
-	util_gettimeofday_ptr(&tv);
-	return tv;
 }
 void util_settimeofday(uint32_t sec)
 {
