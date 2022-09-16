@@ -34,7 +34,7 @@ char* util_strcpy_p(char* dest, const char* src)
 }
 size_t util_strcpy_l(char* dest, const char* src)
 {
-	return stpcpy(dest, src) - dest;
+	return util_strcpy_p(dest, src) - dest;
 }
 void util_strcpy_n(char* dest, const char* src, size_t size)
 {
