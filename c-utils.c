@@ -17,9 +17,9 @@ uint32_t util_atou(const char* str)
 {
 	return strtoul(str, NULL, 0);
 }
-int util_div_upward(int numer, int denom)
+int util_div_upward(int x, int y)
 {
-	div_t result = div(numer, denom);
+	div_t result = div(x, y);
 	return result.quot + (bool)result.rem;
 }
 
@@ -53,6 +53,7 @@ size_t util_strcpy_nl(char* dest, const char* src, size_t size)
 {
 	return util_strcpy_np(dest, src, size) - dest;
 }
+
 const char* util_strafter(const char* str, const char* set)
 {
 	str += strcspn(str, set);

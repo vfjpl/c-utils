@@ -11,7 +11,7 @@
 
 //! stdlib
 uint32_t util_atou(const char* str);
-int util_div_upward(int numer, int denom);
+int util_div_upward(int x, int y);
 
 
 //! string
@@ -21,6 +21,7 @@ size_t util_strcpy_l(char* dest, const char* src);
 void util_strcpy_n(char* dest, const char* src, size_t size);
 char* util_strcpy_np(char* dest, const char* src, size_t size);
 size_t util_strcpy_nl(char* dest, const char* src, size_t size);
+
 const char* util_strafter(const char* str, const char* set);
 void util_memcpy_swab(void* dest, const void* src, size_t size);
 
