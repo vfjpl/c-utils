@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <stdarg.h>
 #include <string.h>
 #include <stdio.h>
 #include <time.h>
@@ -21,6 +22,16 @@ int util_div_upward(int x, int y)
 {
 	div_t result = div(x, y);
 	return result.quot + (bool)result.rem;
+}
+void util_system(const char* format, ...)
+{
+	va_list args;
+	va_start(args, format);
+	char* buffer;
+	vasprintf(&buffer, format, args);
+	system(buffer);
+	free(buffer);
+	va_end(args);
 }
 
 

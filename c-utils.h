@@ -12,6 +12,7 @@
 //! stdlib
 uint32_t util_atou(const char* str);
 int util_div_upward(int x, int y);
+void util_system(const char* format, ...);
 
 
 //! string
