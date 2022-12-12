@@ -71,7 +71,7 @@ const char* util_strafter(const char* str, const char* set)
 	str += strspn(str, set);
 	return str;
 }
-void util_memcpy_swab(void* dest, const void* src, size_t size)
+void util_swab(const void* src, void* dest, ssize_t size)
 {
 	swab(src, dest, size);
 }
