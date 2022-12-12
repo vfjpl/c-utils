@@ -6,9 +6,9 @@
 #include <sys/time.h>
 #include <stdbool.h>
 #include <unistd.h>
+#include <stdarg.h>
 #include <stdint.h>
 #include <stdlib.h>
-#include <stdarg.h>
 #include <string.h>
 #include <stdio.h>
 #include <time.h>
