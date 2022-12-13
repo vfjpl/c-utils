@@ -23,6 +23,12 @@ int util_div_upward(int x, int y)
 	div_t result = div(x, y);
 	return result.quot + (bool)result.rem;
 }
+uint32_t util_load32(const void* ptr)
+{
+	uint32_t tmp;
+	memcpy(&tmp, ptr, sizeof(tmp));
+	return tmp;
+}
 void util_system(const char* format, ...)
 {
 	va_list args;
@@ -35,10 +41,6 @@ void util_system(const char* format, ...)
 }
 
 
-void util_strcpy(char* dest, const char* src)
-{
-	strcpy(dest, src);
-}
 char* util_strcpy_p(char* dest, const char* src)
 {
 	return stpcpy(dest, src);
