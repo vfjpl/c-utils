@@ -12,11 +12,11 @@
 //! stdlib
 uint32_t util_atou(const char* str);
 int util_div_upward(int x, int y);
+uint32_t util_load32(const void* ptr);
 void util_system(const char* format, ...);
 
 
 //! string
-void util_strcpy(char* dest, const char* src);
 char* util_strcpy_p(char* dest, const char* src);
 size_t util_strcpy_l(char* dest, const char* src);
 void util_strcpy_n(char* dest, const char* src, size_t size);
@@ -34,11 +34,6 @@ char* util_readfile(const char* name);
 //! time
 uint32_t util_time(void);
 void util_gettimeofday(struct timeval* tv);
-void util_settimeofday(uint32_t sec);
-
-
-//! clock_monotonic
-clock_t util_clock_monotonic(void);
 
 
 #endif // C-UTILS_H_INCLUDED
