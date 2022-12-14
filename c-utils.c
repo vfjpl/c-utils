@@ -23,6 +23,12 @@ int util_div_upward(int x, int y)
 	div_t result = div(x, y);
 	return result.quot + (bool)result.rem;
 }
+uint16_t util_load16(const void* ptr)
+{
+	uint16_t tmp;
+	memcpy(&tmp, ptr, sizeof(tmp));
+	return tmp;
+}
 uint32_t util_load32(const void* ptr)
 {
 	uint32_t tmp;
