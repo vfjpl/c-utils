@@ -12,6 +12,7 @@
 //! stdlib
 uint32_t util_atou(const char* str);
 int util_div_upward(int x, int y);
+uint16_t util_load16(const void* ptr);
 uint32_t util_load32(const void* ptr);
 void util_system(const char* format, ...);
 
