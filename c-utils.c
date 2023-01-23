@@ -14,7 +14,7 @@
 #include <time.h>
 
 
-uint32_t util_atou(const char* str)
+uint32_t util_atou32(const char* str)
 {
 	return strtoul(str, NULL, 0);
 }
@@ -34,6 +34,14 @@ uint32_t util_load32(const void* ptr)
 	uint32_t tmp;
 	memcpy(&tmp, ptr, sizeof(tmp));
 	return tmp;
+}
+void util_store16(void* ptr, uint16_t val)
+{
+    memcpy(ptr, &val, sizeof(val));
+}
+void util_store32(void* ptr, uint32_t val)
+{
+    memcpy(ptr, &val, sizeof(val));
 }
 void util_system(const char* format, ...)
 {
