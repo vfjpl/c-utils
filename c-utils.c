@@ -25,23 +25,23 @@ int util_div_upward(int x, int y)
 }
 uint16_t util_load16(const void* ptr)
 {
-	uint16_t tmp;
-	memcpy(&tmp, ptr, sizeof(tmp));
-	return tmp;
+	uint16_t val;
+	memcpy(&val, ptr, sizeof(val));
+	return val;
 }
 uint32_t util_load32(const void* ptr)
 {
-	uint32_t tmp;
-	memcpy(&tmp, ptr, sizeof(tmp));
-	return tmp;
+	uint32_t val;
+	memcpy(&val, ptr, sizeof(val));
+	return val;
 }
 void util_store16(void* ptr, uint16_t val)
 {
-    memcpy(ptr, &val, sizeof(val));
+	memcpy(ptr, &val, sizeof(val));
 }
 void util_store32(void* ptr, uint32_t val)
 {
-    memcpy(ptr, &val, sizeof(val));
+	memcpy(ptr, &val, sizeof(val));
 }
 void util_system(const char* format, ...)
 {
@@ -54,6 +54,15 @@ void util_system(const char* format, ...)
 	va_end(args);
 }
 
+
+void util_swab(const void* src, void* dest, ssize_t size)
+{
+	swab(src, dest, size);
+}
+void* util_mempcpy(void* dest, const void* src, size_t size)
+{
+    return mempcpy(dest, src, size);
+}
 
 char* util_strcpy_p(char* dest, const char* src)
 {
@@ -86,10 +95,6 @@ const char* util_strafter(const char* str, const char* set)
 	str += strcspn(str, set);
 	str += strspn(str, set);
 	return str;
-}
-void util_swab(const void* src, void* dest, ssize_t size)
-{
-	swab(src, dest, size);
 }
 
 

@@ -20,6 +20,9 @@ void util_system(const char* format, ...);
 
 
 //! string
+void util_swab(const void* src, void* dest, ssize_t size);
+void* util_mempcpy(void* dest, const void* src, size_t size);
+
 char* util_strcpy_p(char* dest, const char* src);
 size_t util_strcpy_l(char* dest, const char* src);
 void util_strcpy_n(char* dest, const char* src, size_t size);
@@ -27,7 +30,6 @@ char* util_strcpy_np(char* dest, const char* src, size_t size);
 size_t util_strcpy_nl(char* dest, const char* src, size_t size);
 
 const char* util_strafter(const char* str, const char* set);
-void util_swab(const void* src, void* dest, ssize_t size);
 
 
 //! stdio
