@@ -61,7 +61,7 @@ void util_swab(const void* src, void* dest, ssize_t size)
 }
 void* util_mempcpy(void* dest, const void* src, size_t size)
 {
-    return mempcpy(dest, src, size);
+	return mempcpy(dest, src, size);
 }
 
 char* util_strcpy_p(char* dest, const char* src)
