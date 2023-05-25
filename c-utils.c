@@ -2,11 +2,9 @@
 #define _GNU_SOURCE
 #endif // _GNU_SOURCE
 
-#include <sys/times.h>
 #include <sys/time.h>
 #include <stdbool.h>
 #include <unistd.h>
-#include <stdarg.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
@@ -23,6 +21,7 @@ int util_div_upward(int x, int y)
 	div_t result = div(x, y);
 	return result.quot + (bool)result.rem;
 }
+
 uint16_t util_load16(const void* ptr)
 {
 	uint16_t val;
@@ -42,16 +41,6 @@ void util_store16(void* ptr, uint16_t val)
 void util_store32(void* ptr, uint32_t val)
 {
 	memcpy(ptr, &val, sizeof(val));
-}
-void util_system(const char* format, ...)
-{
-	va_list args;
-	va_start(args, format);
-	char* buffer;
-	vasprintf(&buffer, format, args);
-	system(buffer);
-	free(buffer);
-	va_end(args);
 }
 
 
@@ -121,31 +110,7 @@ void util_gettimeofday(struct timeval* tv)
 {
 	gettimeofday(tv, NULL);
 }
-void util_settimeofday(uint32_t sec)
+void util_settimeofday(const struct timeval* tv)
 {
-	struct timeval tv = {sec};
-	settimeofday(&tv, NULL);
-}
-
-
-static clock_t util_sec_to_clock_t(clock_t val)
-{
-	return val * sysconf(_SC_CLK_TCK);
-}
-static clock_t util_clock_t_to_sec(clock_t val)
-{
-	return val / sysconf(_SC_CLK_TCK);
-}
-static clock_t util_msec_to_clock_t(clock_t val)
-{
-	return util_sec_to_clock_t(val) / 1000;
-}
-static clock_t util_clock_t_to_msec(clock_t val)
-{
-	return util_clock_t_to_sec(val * 1000);
-}
-
-clock_t util_clock_monotonic(void)
-{
-	return times(NULL);
+	settimeofday(tv, NULL);
 }
