@@ -12,11 +12,11 @@
 //! stdlib
 uint32_t util_atou32(const char* str);
 int util_div_upward(int x, int y);
+
 uint16_t util_load16(const void* ptr);
 uint32_t util_load32(const void* ptr);
 void util_store16(void* ptr, uint16_t val);
 void util_store32(void* ptr, uint32_t val);
-void util_system(const char* format, ...);
 
 
 //! string
@@ -39,6 +39,7 @@ char* util_readfile(const char* name);
 //! time
 uint32_t util_time(void);
 void util_gettimeofday(struct timeval* tv);
+void util_settimeofday(const struct timeval* tv);
 
 
 #endif // C-UTILS_H_INCLUDED
