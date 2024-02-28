@@ -3,7 +3,6 @@
 #endif // _GNU_SOURCE
 
 #include <sys/time.h>
-#include <stdbool.h>
 #include <unistd.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -12,27 +11,15 @@
 #include <time.h>
 
 
-uint32_t util_atou32(const char* str)
-{
-	return strtoul(str, NULL, 0);
-}
-int util_div_upward(int x, int y)
-{
-	div_t result = div(x, y);
-	return result.quot + (bool)result.rem;
-}
-
 uint16_t util_load16(const void* ptr)
 {
 	uint16_t val;
-	memcpy(&val, ptr, sizeof(val));
-	return val;
+	return *(uint16_t*)memcpy(&val, ptr, sizeof(val));
 }
 uint32_t util_load32(const void* ptr)
 {
 	uint32_t val;
-	memcpy(&val, ptr, sizeof(val));
-	return val;
+	return *(uint32_t*)memcpy(&val, ptr, sizeof(val));
 }
 void util_store16(void* ptr, uint16_t val)
 {
@@ -76,13 +63,6 @@ char* util_strcpy_np(char* dest, const char* src, size_t size)
 size_t util_strcpy_nl(char* dest, const char* src, size_t size)
 {
 	return util_strcpy_np(dest, src, size) - dest;
-}
-
-const char* util_strafter(const char* str, const char* set)
-{
-	str += strcspn(str, set);
-	str += strspn(str, set);
-	return str;
 }
 
 
