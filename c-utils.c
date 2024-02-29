@@ -3,7 +3,7 @@
 #endif // _GNU_SOURCE
 
 #include <sys/time.h>
-#include <unistd.h>
+#include <stdarg.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
@@ -29,16 +29,17 @@ void util_store32(void* ptr, uint32_t val)
 {
 	memcpy(ptr, &val, sizeof(val));
 }
-
-
-void util_swab(const void* src, void* dest, ssize_t size)
+void util_system(const char* format, ...)
 {
-	swab(src, dest, size);
+	va_list args;
+	va_start(args, format);
+	char* buffer;
+	vasprintf(&buffer, format, args);
+	system(buffer);
+	free(buffer);
+	va_end(args);
 }
-void* util_mempcpy(void* dest, const void* src, size_t size)
-{
-	return mempcpy(dest, src, size);
-}
+
 
 char* util_strcpy_p(char* dest, const char* src)
 {
