@@ -6,6 +6,7 @@
 #include <stdarg.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <string.h>
 #include <stdio.h>
 #include <time.h>
@@ -41,6 +42,10 @@ void util_system(const char* format, ...)
 }
 
 
+void util_swab(const void* src, void* dest, ssize_t size)
+{
+	swab(src, dest, size);
+}
 char* util_strcpy_p(char* dest, const char* src)
 {
 	return stpcpy(dest, src);
