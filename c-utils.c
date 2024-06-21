@@ -72,6 +72,12 @@ size_t util_strcpy_nl(char* dest, const char* src, size_t size)
 }
 
 
+const char* util_strafter(const char* str, const char* set)
+{
+	str += strcspn(str, set);
+	str += strspn(str, set);
+	return str;
+}
 char* util_readfile(const char* name)
 {
 	FILE* file = fopen(name, "r");
