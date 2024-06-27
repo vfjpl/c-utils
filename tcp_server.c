@@ -33,7 +33,7 @@ int tcp_server_create(uint16_t port)
 		close(server_fd);
 		return -1;
 	}
-	if(listen(server_fd, 1) < 0)
+	if(listen(server_fd, 0) < 0)
 	{
 		close(server_fd);
 		return -1;
