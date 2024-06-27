@@ -18,6 +18,11 @@ int tcp_server_create(uint16_t port)
 	{
 		return -1;
 	}
+	if(fcntl(server_fd, F_SETFD, FD_CLOEXEC) < 0)
+	{
+		close(server_fd);
+		return -1;
+	}
 	if(setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &server_optval, sizeof(server_optval)) < 0)
 	{
 		close(server_fd);
@@ -42,6 +47,11 @@ int tcp_server_accept(int server_fd)
 	int client_fd = accept(server_fd, NULL, NULL);
 	if(client_fd < 0)
 	{
+		return -1;
+	}
+	if(fcntl(client_fd, F_SETFD, FD_CLOEXEC) < 0)
+	{
+		close(client_fd);
 		return -1;
 	}
 	if(fcntl(client_fd, F_SETFL, O_NDELAY) < 0)
