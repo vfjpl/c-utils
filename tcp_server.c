@@ -7,7 +7,7 @@
 
 int tcp_server_create(uint16_t port)
 {
-	int server_optval = 1;
+	int server_opt = 1;
 	struct sockaddr_in server_addr = {0};
 	server_addr.sin_family = AF_INET;
 	server_addr.sin_port = htons(port);
@@ -23,7 +23,7 @@ int tcp_server_create(uint16_t port)
 		close(server_fd);
 		return -1;
 	}
-	if(setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &server_optval, sizeof(server_optval)) < 0)
+	if(setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &server_opt, sizeof(server_opt)) < 0)
 	{
 		close(server_fd);
 		return -1;
