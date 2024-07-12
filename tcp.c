@@ -30,13 +30,13 @@ int tcp_client_connect(uint32_t addr, uint16_t port)
 	return client_fd;
 }
 
-int tcp_server_create(uint32_t addr, uint16_t port)
+int tcp_server_create(uint16_t port)
 {
 	int server_opt = 1;
 	struct sockaddr_in server_addr = {0};
 	server_addr.sin_family = AF_INET;
 	server_addr.sin_port = htons(port);
-	server_addr.sin_addr.s_addr = htonl(addr);
+	server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
 	int server_fd = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if(server_fd < 0)
