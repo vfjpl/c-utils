@@ -2,14 +2,12 @@
 #define _GNU_SOURCE
 #endif // _GNU_SOURCE
 
-#include <sys/time.h>
 #include <stdarg.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 #include <stdio.h>
-#include <time.h>
 
 
 uint16_t util_load16(const void* ptr)
@@ -30,18 +28,6 @@ void util_store32(void* ptr, uint32_t val)
 {
 	memcpy(ptr, &val, sizeof(val));
 }
-void util_system(const char* format, ...)
-{
-	va_list args;
-	va_start(args, format);
-	char* buffer;
-	vasprintf(&buffer, format, args);
-	system(buffer);
-	free(buffer);
-	va_end(args);
-}
-
-
 void util_swab(const void* src, void* dest, ssize_t size)
 {
 	swab(src, dest, size);
@@ -70,8 +56,6 @@ size_t util_strcpy_nl(char* dest, const char* src, size_t size)
 {
 	return util_strcpy_np(dest, src, size) - dest;
 }
-
-
 const char* util_strafter(const char* str, const char* set)
 {
 	str += strcspn(str, set);
@@ -91,17 +75,12 @@ char* util_readfile(const char* name)
 	fclose(file);
 	return buffer;
 }
-
-
-uint32_t util_time(void)
+char* util_asprintf(const char* format, ...)
 {
-	return time(NULL);
-}
-void util_gettimeofday(struct timeval* tv)
-{
-	gettimeofday(tv, NULL);
-}
-void util_settimeofday(const struct timeval* tv)
-{
-	settimeofday(tv, NULL);
+	va_list args;
+	va_start(args, format);
+	char* buffer;
+	vasprintf(&buffer, format, args);
+	va_end(args);
+	return buffer;
 }
