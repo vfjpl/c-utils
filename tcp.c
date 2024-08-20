@@ -1,9 +1,45 @@
+#include <netdb.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include <netinet/in.h>
 
 ///https://en.wikipedia.org/wiki/Berkeley_sockets
 
+int tcp_client_connect(const char* node, const char* service)
+{
+	struct addrinfo* res = NULL;
+	struct addrinfo hints = {0};
+	hints.ai_family = AF_INET;
+	hints.ai_socktype = SOCK_STREAM;
+	hints.ai_protocol = IPPROTO_TCP;
+
+	int errcode = getaddrinfo(node, service, &hints, &res);
+	if(errcode < 0)
+	{
+		return errcode;
+	}
+
+	int client_fd = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
+	if(client_fd < 0)
+	{
+		freeaddrinfo(res);
+		return EAI_SYSTEM;
+	}
+	if(fcntl(client_fd, F_SETFD, FD_CLOEXEC) < 0)
+	{
+		close(client_fd);
+		freeaddrinfo(res);
+		return EAI_SYSTEM;
+	}
+	if(connect(client_fd, res->ai_addr, res->ai_addrlen) < 0)
+	{
+		close(client_fd);
+		freeaddrinfo(res);
+		return EAI_SYSTEM;
+	}
+
+	freeaddrinfo(res);
+	return client_fd;
+}
 
 int tcp_server_create(uint16_t port)
 {
