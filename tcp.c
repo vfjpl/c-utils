@@ -12,10 +12,10 @@ int tcp_client_connect(const char* name, const char* port)
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_protocol = IPPROTO_TCP;
 
-	int err = getaddrinfo(name, port, &hints, &addr);
-	if(err < 0)
+	int errcode = getaddrinfo(name, port, &hints, &addr);
+	if(errcode < 0)
 	{
-		return err;
+		return errcode;
 	}
 
 	int client_fd = socket(addr->ai_family, addr->ai_socktype, addr->ai_protocol);
