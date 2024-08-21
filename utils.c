@@ -2,35 +2,20 @@
 #define _GNU_SOURCE
 #endif // _GNU_SOURCE
 
+#include <stdarg.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 #include <stdio.h>
 
-
-uint16_t util_load16(const void* ptr)
+float util_atof(const char* str)
 {
-	uint16_t val;
-	return *(uint16_t*)memcpy(&val, ptr, sizeof(val));
+	return strtof(str, NULL);
 }
-uint32_t util_load32(const void* ptr)
+unsigned util_atou(const char* str)
 {
-	uint32_t val;
-	return *(uint32_t*)memcpy(&val, ptr, sizeof(val));
-}
-void util_store16(void* ptr, uint16_t val)
-{
-	memcpy(ptr, &val, sizeof(val));
-}
-void util_store32(void* ptr, uint32_t val)
-{
-	memcpy(ptr, &val, sizeof(val));
-}
-
-void util_swab(const void* src, void* dest, ssize_t size)
-{
-	swab(src, dest, size);
+	return strtoul(str, NULL, 0);
 }
 
 char* util_strcpy_p(char* dest, const char* src)
@@ -58,11 +43,23 @@ size_t util_strcpy_nl(char* dest, const char* src, size_t size)
 	return util_strcpy_np(dest, src, size) - dest;
 }
 
-const char* util_strafter(const char* str, const char* set)
+void util_swab(const void* src, void* dest, ssize_t size)
 {
-	str += strcspn(str, set);
-	str += strspn(str, set);
-	return str;
+	swab(src, dest, size);
+}
+void* util_memcpy_p(void* dest, const void* src, size_t size)
+{
+	return mempcpy(dest, src, size);    
+}
+
+char* util_asprintf(const char* format, ...)
+{
+	va_list args;
+	va_start(args, format);
+	char* buffer = NULL;
+	vasprintf(&buffer, format, args);
+	va_end(args);
+	return buffer;
 }
 
 char* util_readfile(const char* name)
