@@ -52,6 +52,13 @@ void* util_mempcpy(void* dest, const void* src, size_t size)
 	return mempcpy(dest, src, size);    
 }
 
+void util_close(int* pfd)
+{
+	int fd = *pfd;
+	*pfd = -1;
+	close(fd);
+}
+
 char* util_asprintf(const char* format, ...)
 {
 	va_list args;
