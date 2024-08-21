@@ -13,7 +13,7 @@ float util_atof(const char* str)
 {
 	return strtof(str, NULL);
 }
-unsigned util_atou(const char* str)
+uint32_t util_atou(const char* str)
 {
 	return strtoul(str, NULL, 0);
 }
@@ -47,7 +47,7 @@ void util_swab(const void* src, void* dest, ssize_t size)
 {
 	swab(src, dest, size);
 }
-void* util_memcpy_p(void* dest, const void* src, size_t size)
+void* util_mempcpy(void* dest, const void* src, size_t size)
 {
 	return mempcpy(dest, src, size);    
 }
