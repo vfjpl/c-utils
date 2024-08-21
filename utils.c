@@ -29,6 +29,7 @@ void util_store32(void* ptr, uint32_t val)
 	memcpy(ptr, &val, sizeof(val));
 }
 
+
 float util_atof(const char* str)
 {
 	return strtof(str, NULL);
@@ -37,6 +38,7 @@ uint32_t util_atou(const char* str)
 {
 	return strtoul(str, NULL, 0);
 }
+
 
 char* util_strcpy_p(char* dest, const char* src)
 {
@@ -63,6 +65,15 @@ size_t util_strcpy_nl(char* dest, const char* src, size_t size)
 	return util_strcpy_np(dest, src, size) - dest;
 }
 
+
+const char* util_strafter(const char* str, const char* delim)
+{
+	str += strcspn(str, delim);
+	str += strspn(str, delim);
+	return str;
+}
+
+
 void util_swab(const void* src, void* dest, ssize_t size)
 {
 	swab(src, dest, size);
@@ -72,12 +83,14 @@ void* util_mempcpy(void* dest, const void* src, size_t size)
 	return mempcpy(dest, src, size);    
 }
 
+
 void util_close(int* pfd)
 {
 	int fd = *pfd;
 	*pfd = -1;
 	close(fd);
 }
+
 
 char* util_asprintf(const char* format, ...)
 {
@@ -88,7 +101,6 @@ char* util_asprintf(const char* format, ...)
 	va_end(args);
 	return buffer;
 }
-
 char* util_readfile(const char* name)
 {
 	FILE* file = fopen(name, "r");

@@ -1,7 +1,6 @@
 #ifndef UTILS_H_INCLUDED
 #define UTILS_H_INCLUDED
 
-#include <sys/types.h>
 #include <stdint.h>
 
 
@@ -19,13 +18,14 @@ void util_strcpy_n(char* dest, const char* src, size_t size);
 char* util_strcpy_np(char* dest, const char* src, size_t size);
 size_t util_strcpy_nl(char* dest, const char* src, size_t size);
 
+const char* util_strafter(const char* str, const char* delim);
+
 void util_swab(const void* src, void* dest, ssize_t size);
 void* util_mempcpy(void* dest, const void* src, size_t size);
 
 void util_close(int* pfd);
 
 char* util_asprintf(const char* format, ...);
-
 char* util_readfile(const char* name);
 
 
