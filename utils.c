@@ -9,6 +9,25 @@
 #include <string.h>
 #include <stdio.h>
 
+uint16_t util_load16(const void* ptr)
+{
+	uint16_t val;
+	return *(uint16_t*)memcpy(&val, ptr, sizeof(val));
+}
+uint32_t util_load32(const void* ptr)
+{
+	uint32_t val;
+	return *(uint32_t*)memcpy(&val, ptr, sizeof(val));
+}
+void util_store16(void* ptr, uint16_t val)
+{
+	memcpy(ptr, &val, sizeof(val));
+}
+void util_store32(void* ptr, uint32_t val)
+{
+	memcpy(ptr, &val, sizeof(val));
+}
+
 float util_atof(const char* str)
 {
 	return strtof(str, NULL);
