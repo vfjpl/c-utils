@@ -27,6 +27,6 @@ const char* util_strerror(void);
 void util_close(int* pfd);
 
 char* util_asprintf(const char* format, ...);
-char* util_readfile(const char* name);
+char* util_readfile(const char* filename);
 
 #endif // UTILS_H_INCLUDED

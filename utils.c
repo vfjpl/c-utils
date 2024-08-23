@@ -108,9 +108,9 @@ char* util_asprintf(const char* format, ...)
 	va_end(args);
 	return buffer;
 }
-char* util_readfile(const char* name)
+char* util_readfile(const char* filename)
 {
-	FILE* file = fopen(name, "r");
+	FILE* file = fopen(filename, "r");
 	if(!file) return NULL;
 	fseek(file, 0, SEEK_END);
 	long size = ftell(file);
