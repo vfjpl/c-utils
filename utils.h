@@ -24,6 +24,7 @@ void* util_mempcpy(void* dest, const void* src, size_t size);
 
 const char* util_strerror(void);
 
+int util_open(const char* filename, int flags);
 void util_close(int* pfd);
 
 char* util_asprintf(const char* format, ...);
