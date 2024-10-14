@@ -1,6 +1,8 @@
 #ifndef UTILS_H_INCLUDED
 #define UTILS_H_INCLUDED
 
+#include <sys/types.h>
+#include <stdbool.h>
 #include <stdint.h>
 
 uint16_t util_load16(const void* ptr);
@@ -17,6 +19,7 @@ void util_strcpy_n(char* dest, const char* src, size_t size);
 char* util_strcpy_np(char* dest, const char* src, size_t size);
 size_t util_strcpy_nl(char* dest, const char* src, size_t size);
 
+bool util_streq(const char* str1, const char* str2);
 const char* util_strafter(const char* str, const char* delim);
 
 void util_swab(const void* src, void* dest, ssize_t size);

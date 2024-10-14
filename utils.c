@@ -2,6 +2,7 @@
 #define _GNU_SOURCE
 #endif // _GNU_SOURCE
 
+#include <stdbool.h>
 #include <stdarg.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -68,6 +69,10 @@ size_t util_strcpy_nl(char* dest, const char* src, size_t size)
 }
 
 
+bool util_streq(const char* str1, const char* str2)
+{
+	return !strcmp(str1, str2);
+}
 const char* util_strafter(const char* str, const char* delim)
 {
 	str += strcspn(str, delim);
@@ -127,13 +132,16 @@ char* util_asprintf(const char* format, ...)
 char* util_readfile(const char* filename)
 {
 	FILE* file = fopen(filename, "r");
-	if(!file) return NULL;
-	fseek(file, 0, SEEK_END);
-	long size = ftell(file);
-	rewind(file);
-	char* buffer = (char*)malloc(size + 1);
-	fread(buffer, 1, size, file);
-	buffer[size] = '\0';
-	fclose(file);
-	return buffer;
+	if(file)
+	{
+		fseek(file, 0, SEEK_END);
+		long size = ftell(file);
+		rewind(file);
+		char* buffer = (char*)malloc(size + 1);
+		fread(buffer, 1, size, file);
+		buffer[size] = '\0';
+		fclose(file);
+		return buffer;
+	}
+	return NULL;
 }
