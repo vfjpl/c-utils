@@ -20,6 +20,7 @@ char* util_strcpy_np(char* dest, const char* src, size_t size);
 size_t util_strcpy_nl(char* dest, const char* src, size_t size);
 
 bool util_streq(const char* str1, const char* str2);
+bool util_strneq(const char* str1, const char* str2, size_t size);
 const char* util_strafter(const char* str, const char* delim);
 
 void util_swab(const void* src, void* dest, ssize_t size);

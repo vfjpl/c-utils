@@ -73,6 +73,10 @@ bool util_streq(const char* str1, const char* str2)
 {
 	return !strcmp(str1, str2);
 }
+bool util_strneq(const char* str1, const char* str2, size_t size)
+{
+	return !strncmp(str1, str2, size);
+}
 const char* util_strafter(const char* str, const char* delim)
 {
 	str += strcspn(str, delim);
