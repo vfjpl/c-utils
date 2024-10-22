@@ -47,10 +47,10 @@ int tcp_client_connect(const char* name, const char* port)
 int tcp_server_create(uint16_t port)
 {
 	int opt = 1;
-	struct sockaddr_in addres = {0};
-	addres.sin_family = AF_INET;
-	addres.sin_port = htons(port);
-	addres.sin_addr.s_addr = htonl(INADDR_ANY);
+	struct sockaddr_in address = {0};
+	address.sin_family = AF_INET;
+	address.sin_port = htons(port);
+	address.sin_addr.s_addr = htonl(INADDR_ANY);
 
 	int server_fd = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if(server_fd < 0)
@@ -67,7 +67,7 @@ int tcp_server_create(uint16_t port)
 		close(server_fd);
 		return -1;
 	}
-	if(bind(server_fd, (struct sockaddr*)&addres, sizeof(addres)) < 0)
+	if(bind(server_fd, (struct sockaddr*)&address, sizeof(address)) < 0)
 	{
 		close(server_fd);
 		return -1;
