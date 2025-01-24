@@ -81,9 +81,10 @@ int tcp_server_create(uint16_t port)
 	return server_fd;
 }
 
-int tcp_server_accept(int server_fd)
+int tcp_server_accept(int server_fd, struct sockaddr_in* addr)
 {
-	int client_fd = accept(server_fd, NULL, NULL);
+	socklen_t addrlen = sizeof(struct sockaddr_in);
+	int client_fd = accept(server_fd, (struct sockaddr*)addr, &addrlen);
 	if(client_fd < 0)
 	{
 		return -1;
