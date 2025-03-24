@@ -8,7 +8,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include <fcntl.h>
 #include <stdio.h>
 #include <errno.h>
 
@@ -101,21 +100,6 @@ const char* util_strerror(void)
 }
 
 
-int util_open(const char* filename, int flags)
-{
-	int open_fd = open(filename, flags);
-	if(open_fd < 0)
-	{
-		return -1;
-	}
-	if(fcntl(open_fd, F_SETFD, FD_CLOEXEC) < 0)
-	{
-		close(open_fd);
-		return -1;
-	}
-
-	return open_fd;
-}
 void util_close(int* pfd)
 {
 	int fd = *pfd;
