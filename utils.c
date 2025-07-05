@@ -119,7 +119,7 @@ char* util_asprintf(const char* format, ...)
 }
 char* util_readfile(const char* filename)
 {
-	FILE* file = fopen(filename, "r");
+	FILE* file = fopen(filename, "re");
 	if(!file) return NULL;
 	fseek(file, 0, SEEK_END);
 	long size = ftell(file);
