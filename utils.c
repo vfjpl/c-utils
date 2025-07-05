@@ -92,6 +92,10 @@ void* util_mempcpy(void* dest, const void* src, size_t size)
 {
 	return mempcpy(dest, src, size);
 }
+void util_memzero(void* dest, size_t size)
+{
+	bzero(dest, size);
+}
 
 
 const char* util_strerror(void)
