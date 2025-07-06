@@ -5,6 +5,12 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+typedef struct
+{
+	char* buf;
+	long size;
+} string_t;
+
 uint16_t util_load16(const void* ptr);
 uint32_t util_load32(const void* ptr);
 void util_store16(void* ptr, uint16_t val);
@@ -25,13 +31,13 @@ const char* util_strafter(const char* str, const char* delim);
 
 void util_swab(const void* src, void* dest, ssize_t size);
 void* util_mempcpy(void* dest, const void* src, size_t size);
-void util_memzero(void* dest, size_t size);
+void util_bzero(void* dest, size_t size);
 
 const char* util_strerror(void);
 
 void util_close(int* pfd);
 
-char* util_asprintf(const char* format, ...);
-char* util_readfile(const char* filename);
+string_t util_asprintf(const char* format, ...);
+string_t util_readfile(const char* filename);
 
 #endif // UTILS_H_INCLUDED

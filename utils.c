@@ -12,6 +12,13 @@
 #include <errno.h>
 
 
+typedef struct
+{
+	char* buf;
+	long size;
+} string_t;
+
+
 uint16_t util_load16(const void* ptr)
 {
 	uint16_t val;
@@ -92,7 +99,7 @@ void* util_mempcpy(void* dest, const void* src, size_t size)
 {
 	return mempcpy(dest, src, size);
 }
-void util_memzero(void* dest, size_t size)
+void util_bzero(void* dest, size_t size)
 {
 	bzero(dest, size);
 }
@@ -112,25 +119,26 @@ void util_close(int* pfd)
 }
 
 
-char* util_asprintf(const char* format, ...)
+string_t util_asprintf(const char* format, ...)
 {
 	va_list args;
 	va_start(args, format);
-	char* buffer = NULL;
-	vasprintf(&buffer, format, args);
+	string_t str = {0};
+	str.size = vasprintf(&str.buf, format, args);
 	va_end(args);
-	return buffer;
+	return str;
 }
-char* util_readfile(const char* filename)
+string_t util_readfile(const char* filename)
 {
+	string_t str = {0};
 	FILE* file = fopen(filename, "re");
-	if(!file) return NULL;
+	if(!file) return str;
 	fseek(file, 0, SEEK_END);
-	long size = ftell(file);
+	str.size = ftell(file);
 	rewind(file);
-	char* buffer = (char*)malloc(size + 1);
-	fread(buffer, 1, size, file);
-	buffer[size] = '\0';
+	str.buf = (char*)malloc(str.size + 1);
+	fread(str.buf, 1, str.size, file);
+	str.buf[str.size] = '\0';
 	fclose(file);
-	return buffer;
+	return str;
 }
