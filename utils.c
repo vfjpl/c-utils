@@ -37,11 +37,11 @@ void util_store32(void* ptr, uint32_t val)
 {
 	memcpy(ptr, &val, sizeof(val));
 }
-void util_copy16(void* dest, const void* src);
+void util_copy16(void* dest, const void* src)
 {
 	memcpy(dest, src, sizeof(uint16_t));
 }
-void util_copy32(void* dest, const void* src);
+void util_copy32(void* dest, const void* src)
 {
 	memcpy(dest, src, sizeof(uint32_t));
 }
@@ -51,7 +51,7 @@ float util_atof(const char* str)
 {
 	return strtof(str, NULL);
 }
-uint32_t util_atou32(const char* str)
+uint32_t util_atou(const char* str)
 {
 	return strtoul(str, NULL, 0);
 }
@@ -91,10 +91,10 @@ bool util_streq_n(const char* str1, const char* str2, size_t n)
 {
 	return !strncmp(str1, str2, n);
 }
-const char* util_strafter(const char* str, const char* delim)
+const char* util_strafter(const char* str, const char* delims)
 {
-	str += strcspn(str, delim);
-	str += strspn(str, delim);
+	str += strcspn(str, delims);
+	str += strspn(str, delims);
 	return str;
 }
 

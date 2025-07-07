@@ -19,7 +19,7 @@ void util_copy16(void* dest, const void* src);
 void util_copy32(void* dest, const void* src);
 
 float util_atof(const char* str);
-uint32_t util_atou32(const char* str);
+uint32_t util_atou(const char* str);
 
 char* util_strcpy_p(char* dest, const char* src);
 size_t util_strcpy_l(char* dest, const char* src);
@@ -29,7 +29,7 @@ size_t util_strcpy_nl(char* dest, const char* src, size_t n);
 
 bool util_streq(const char* str1, const char* str2);
 bool util_streq_n(const char* str1, const char* str2, size_t n);
-const char* util_strafter(const char* str, const char* delim);
+const char* util_strafter(const char* str, const char* delims);
 
 void util_bzero(void* dest, size_t n);
 void util_swab(const void* src, void* dest, ssize_t n);
