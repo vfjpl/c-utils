@@ -34,6 +34,7 @@ const char* util_strafter(const char* str, const char* delims);
 void util_bzero(void* dest, size_t n);
 void util_swab(const void* src, void* dest, ssize_t n);
 void* util_mempcpy(void* dest, const void* src, size_t n);
+bool util_memeq(const void* ptr1, const void* ptr2, size_t n);
 
 const char* util_strerror(void);
 

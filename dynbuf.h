@@ -24,13 +24,11 @@ dynbuf_t buf_append_impl(dynbuf_t dest, dynbuf_t src)
 #define buf_append_ptr(dest, ptr)             buf_append_ptr_size(dest, ptr, sizeof(*ptr))
 #define buf_append_type_val(dest, type, ...)  buf_append_ptr(dest, (&(type){__VA_ARGS__}))
 
-#define buf_index(b, t, i)                   *((t*)b.ptr + i)
-#define buf_elems(b, t)                      (b.size / sizeof(t))
-#define buf_free(b)                          (free(b.ptr))
-
+#define buf_at(b, t, i)                       *((t*)b.ptr + i)
+#define buf_size(b, t)                        (b.size / sizeof(t))
+#define buf_free(b)                           (free(b.ptr))
 
 /*
-EXAMPLE:
 
 	int var1 = 69;
 	int tab1[] = {2, 3, 4, 6, 8, 0};
@@ -41,8 +39,8 @@ EXAMPLE:
 	buf_append_ptr_size(buf1, tab1, sizeof(tab1));
 	buf_append_type_val(buf1, int, 1337);
 	buf_append_type_val(buf1, int[], 1, 3, 4, 6, 3, 4);
-	for(long i = 0; i < buf_elems(buf1, int); ++i)
-		printf("%d\n", buf_index(buf1, int, i));
+	for(long i = 0; i < buf_size(buf1, int); ++i)
+		printf("%d\n", buf_at(buf1, int, i));
 	buf_free(buf1);
 
 
@@ -54,8 +52,8 @@ EXAMPLE:
 	buf_append_type_val(buf2, struct_type);
 	buf_append_ptr_size(buf2, tab2, sizeof(tab2));
 	buf_append_type_val(buf2, struct_type, 2, 1, 3, 7);
-	for(long i = 0; i < buf_elems(buf2, struct_type); ++i)
-		process_struct(&buf_index(buf2, struct_type, i));
+	for(long i = 0; i < buf_size(buf2, struct_type); ++i)
+		process_struct(&buf_at(buf2, struct_type, i));
 	buf_free(buf2);
 
 */

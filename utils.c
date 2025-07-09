@@ -111,6 +111,10 @@ void* util_mempcpy(void* dest, const void* src, size_t n)
 {
 	return mempcpy(dest, src, n);
 }
+bool util_memeq(const void* ptr1, const void* ptr2, size_t n)
+{
+	return !bcmp(ptr1, ptr2, n);
+}
 
 
 const char* util_strerror(void)
@@ -140,13 +144,15 @@ string_t util_readfile(const char* filename)
 {
 	string_t str = {0};
 	FILE* file = fopen(filename, "re");
-	if(!file) return str;
-	fseek(file, 0, SEEK_END);
-	str.size = ftell(file);
-	rewind(file);
-	str.ptr = (char*)malloc(str.size + 1);
-	fread(str.ptr, 1, str.size, file);
-	str.ptr[str.size] = '\0';
-	fclose(file);
+	if(file)
+	{
+		fseek(file, 0, SEEK_END);
+		str.size = ftell(file);
+		rewind(file);
+		str.ptr = (char*)malloc(str.size + 1);
+		fread(str.ptr, 1, str.size, file);
+		str.ptr[str.size] = '\0';
+		fclose(file);
+	}
 	return str;
 }
