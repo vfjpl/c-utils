@@ -27,14 +27,15 @@ void util_strcpy_n(char* dest, const char* src, size_t n);
 char* util_strcpy_np(char* dest, const char* src, size_t n);
 size_t util_strcpy_nl(char* dest, const char* src, size_t n);
 
-bool util_streq(const char* str1, const char* str2);
-bool util_streq_n(const char* str1, const char* str2, size_t n);
-const char* util_strafter(const char* str, const char* delims);
-
 void util_bzero(void* dest, size_t n);
 void util_swab(const void* src, void* dest, ssize_t n);
 void* util_mempcpy(void* dest, const void* src, size_t n);
 bool util_memeq(const void* ptr1, const void* ptr2, size_t n);
+
+bool util_streq(const char* str1, const char* str2);
+bool util_streq_n(const char* str1, const char* str2, size_t n);
+bool util_streq_until(const char* str1, const char* untilset, const char* str2);
+const char* util_strafter(const char* str, const char* afterset);
 
 const char* util_strerror(void);
 

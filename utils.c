@@ -83,22 +83,6 @@ size_t util_strcpy_nl(char* dest, const char* src, size_t n)
 }
 
 
-bool util_streq(const char* str1, const char* str2)
-{
-	return !strcmp(str1, str2);
-}
-bool util_streq_n(const char* str1, const char* str2, size_t n)
-{
-	return !strncmp(str1, str2, n);
-}
-const char* util_strafter(const char* str, const char* delims)
-{
-	str += strcspn(str, delims);
-	str += strspn(str, delims);
-	return str;
-}
-
-
 void util_bzero(void* dest, size_t n)
 {
 	bzero(dest, n);
@@ -114,6 +98,30 @@ void* util_mempcpy(void* dest, const void* src, size_t n)
 bool util_memeq(const void* ptr1, const void* ptr2, size_t n)
 {
 	return !bcmp(ptr1, ptr2, n);
+}
+
+
+bool util_streq(const char* str1, const char* str2)
+{
+	return !strcmp(str1, str2);
+}
+bool util_streq_n(const char* str1, const char* str2, size_t n)
+{
+	return !strncmp(str1, str2, n);
+}
+bool util_streq_until(const char* str1, const char* untilset, const char* str2)
+{
+	size_t len = strcspn(str1, untilset);
+	if(strcspn(str2, untilset) == len)
+		return util_memeq(str1, str2, len);
+	else
+		return false;
+}
+const char* util_strafter(const char* str, const char* afterset)
+{
+	str += strcspn(str, afterset);
+	str += strspn(str, afterset);
+	return str;
 }
 
 
