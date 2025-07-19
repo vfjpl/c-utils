@@ -101,7 +101,7 @@ bool util_streq_n(const char* s1, const char* s2, size_t n)
 {
 	return !strncmp(s1, s2, n);
 }
-bool util_streq_until_any(const char* s1, const char* anyset, const char* s2);
+bool util_streq_until_any(const char* s1, const char* anyset, const char* s2)
 {
 	size_t len = strcspn(s1, anyset);
 	if(strcspn(s2, anyset) == len)
@@ -109,7 +109,7 @@ bool util_streq_until_any(const char* s1, const char* anyset, const char* s2);
 	else
 		return false;
 }
-const char* util_strafter_any(const char* str, const char* anyset);
+const char* util_strafter_any(const char* str, const char* anyset)
 {
 	str += strcspn(str, anyset);
 	str += strspn(str, anyset);
