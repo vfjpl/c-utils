@@ -37,14 +37,6 @@ void util_store32(void* ptr, uint32_t val)
 {
 	memcpy(ptr, &val, sizeof(val));
 }
-void util_copy16(void* dest, const void* src)
-{
-	memcpy(dest, src, sizeof(uint16_t));
-}
-void util_copy32(void* dest, const void* src)
-{
-	memcpy(dest, src, sizeof(uint32_t));
-}
 
 
 float util_atof(const char* str)
@@ -83,9 +75,9 @@ size_t util_strcpy_nl(char* dest, const char* src, size_t n)
 }
 
 
-void util_bzero(void* dest, size_t n)
+void util_bzero(void* ptr, size_t n)
 {
-	bzero(dest, n);
+	bzero(ptr, n);
 }
 void util_swab(const void* src, void* dest, ssize_t n)
 {
@@ -95,32 +87,32 @@ void* util_mempcpy(void* dest, const void* src, size_t n)
 {
 	return mempcpy(dest, src, n);
 }
-bool util_memeq(const void* ptr1, const void* ptr2, size_t n)
+bool util_memeq(const void* p1, const void* p2, size_t n)
 {
-	return !bcmp(ptr1, ptr2, n);
+	return !bcmp(p1, p2, n);
 }
 
 
-bool util_streq(const char* str1, const char* str2)
+bool util_streq(const char* s1, const char* s2)
 {
-	return !strcmp(str1, str2);
+	return !strcmp(s1, s2);
 }
-bool util_streq_n(const char* str1, const char* str2, size_t n)
+bool util_streq_n(const char* s1, const char* s2, size_t n)
 {
-	return !strncmp(str1, str2, n);
+	return !strncmp(s1, s2, n);
 }
-bool util_streq_until(const char* str1, const char* untilset, const char* str2)
+bool util_streq_until_any(const char* s1, const char* anyset, const char* s2);
 {
-	size_t len = strcspn(str1, untilset);
-	if(strcspn(str2, untilset) == len)
-		return util_memeq(str1, str2, len);
+	size_t len = strcspn(s1, anyset);
+	if(strcspn(s2, anyset) == len)
+		return util_memeq(s1, s2, len);
 	else
 		return false;
 }
-const char* util_strafter(const char* str, const char* afterset)
+const char* util_strafter_any(const char* str, const char* anyset);
 {
-	str += strcspn(str, afterset);
-	str += strspn(str, afterset);
+	str += strcspn(str, anyset);
+	str += strspn(str, anyset);
 	return str;
 }
 

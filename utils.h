@@ -15,8 +15,6 @@ uint16_t util_load16(const void* ptr);
 uint32_t util_load32(const void* ptr);
 void util_store16(void* ptr, uint16_t val);
 void util_store32(void* ptr, uint32_t val);
-void util_copy16(void* dest, const void* src);
-void util_copy32(void* dest, const void* src);
 
 float util_atof(const char* str);
 uint32_t util_atou(const char* str);
@@ -27,15 +25,15 @@ void util_strcpy_n(char* dest, const char* src, size_t n);
 char* util_strcpy_np(char* dest, const char* src, size_t n);
 size_t util_strcpy_nl(char* dest, const char* src, size_t n);
 
-void util_bzero(void* dest, size_t n);
+void util_bzero(void* ptr, size_t n);
 void util_swab(const void* src, void* dest, ssize_t n);
 void* util_mempcpy(void* dest, const void* src, size_t n);
-bool util_memeq(const void* ptr1, const void* ptr2, size_t n);
+bool util_memeq(const void* p1, const void* p2, size_t n);
 
-bool util_streq(const char* str1, const char* str2);
-bool util_streq_n(const char* str1, const char* str2, size_t n);
-bool util_streq_until(const char* str1, const char* untilset, const char* str2);
-const char* util_strafter(const char* str, const char* afterset);
+bool util_streq(const char* s1, const char* s2);
+bool util_streq_n(const char* s1, const char* s2, size_t n);
+bool util_streq_until_any(const char* s1, const char* anyset, const char* s2);
+const char* util_strafter_any(const char* str, const char* anyset);
 
 const char* util_strerror(void);
 
