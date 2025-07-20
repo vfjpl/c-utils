@@ -101,17 +101,17 @@ bool util_streq_n(const char* s1, const char* s2, size_t n)
 {
 	return !strncmp(s1, s2, n);
 }
-bool util_streq_until_any(const char* s1, const char* anyset, const char* s2)
+bool util_streq_until_any(const char* s1, const char* anyof, const char* s2)
 {
-	size_t len = strcspn(s1, anyset);
-	if(strcspn(s2, anyset) == len)
+	size_t len = strcspn(s1, anyof);
+	if(strcspn(s2, anyof) == len)
 		return util_memeq(s1, s2, len);
 	return false;
 }
-const char* util_strafter_any(const char* str, const char* anyset)
+const char* util_strafter_any(const char* str, const char* anyof)
 {
-	str += strcspn(str, anyset);
-	str += strspn(str, anyset);
+	str += strcspn(str, anyof);
+	str += strspn(str, anyof);
 	return str;
 }
 

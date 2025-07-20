@@ -32,8 +32,8 @@ bool util_memeq(const void* p1, const void* p2, size_t n);
 
 bool util_streq(const char* s1, const char* s2);
 bool util_streq_n(const char* s1, const char* s2, size_t n);
-bool util_streq_until_any(const char* s1, const char* anyset, const char* s2);
-const char* util_strafter_any(const char* str, const char* anyset);
+bool util_streq_until_any(const char* s1, const char* anyof, const char* s2);
+const char* util_strafter_any(const char* str, const char* anyof);
 
 const char* util_strerror(void);
 
