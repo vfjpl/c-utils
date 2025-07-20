@@ -106,8 +106,7 @@ bool util_streq_until_any(const char* s1, const char* anyset, const char* s2)
 	size_t len = strcspn(s1, anyset);
 	if(strcspn(s2, anyset) == len)
 		return util_memeq(s1, s2, len);
-	else
-		return false;
+	return false;
 }
 const char* util_strafter_any(const char* str, const char* anyset)
 {
