@@ -4,6 +4,40 @@
 
 ///https://en.wikipedia.org/wiki/Berkeley_sockets
 
+int tcp_client_connect(const char* name, const char* port)
+{
+	struct addrinfo* list = NULL;
+	int retval = getaddrinfo(name, port, NULL, &list);
+	if(retval < 0)
+		return retval;
+
+	retval = EAI_SYSTEM;
+	for(struct addrinfo* p = list; p != NULL; p = p->ai_next)
+	{
+		int client_fd = socket(p->ai_family, p->ai_socktype, p->ai_protocol);
+		if(client_fd < 0)
+		{
+			continue;
+		}
+		if(fcntl(client_fd, F_SETFD, FD_CLOEXEC) < 0)
+		{
+			close(client_fd);
+			continue;
+		}
+		if(connect(client_fd, p->ai_addr, p->ai_addrlen) < 0)
+		{
+			close(client_fd);
+			continue;
+		}
+
+		retval = client_fd;
+		break;
+	}
+
+	freeaddrinfo(list);
+	return retval;
+}
+
 int tcp_server_create(uint16_t port)
 {
 	int opt = 1;
