@@ -29,7 +29,7 @@ int tcp_client_connect(const char* name, const char* port)
 			continue;
 		}
 
-		reeaddrinfo(list);
+		freeaddrinfo(list);
 		return retval;
 	}
 
