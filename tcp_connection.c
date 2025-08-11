@@ -7,9 +7,16 @@
 int tcp_client_connect(const char* name, const char* port)
 {
 	struct addrinfo* list = NULL;
-	int retval = getaddrinfo(name, port, NULL, &list);
+	struct addrinfo hints = {0};
+	hints.ai_family = AF_INET;
+	hints.ai_socktype = SOCK_STREAM;
+	hints.ai_protocol = IPPROTO_TCP;
+
+	int retval = getaddrinfo(name, port, &hints, &list);
 	if(retval < 0)
+	{
 		return retval;
+	}
 
 	for(struct addrinfo* p = list; p != NULL; p = p->ai_next)
 	{
