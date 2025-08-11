@@ -11,31 +11,30 @@ int tcp_client_connect(const char* name, const char* port)
 	if(retval < 0)
 		return retval;
 
-	retval = EAI_SYSTEM;
 	for(struct addrinfo* p = list; p != NULL; p = p->ai_next)
 	{
-		int client_fd = socket(p->ai_family, p->ai_socktype, p->ai_protocol);
-		if(client_fd < 0)
+		retval = socket(p->ai_family, p->ai_socktype, p->ai_protocol);
+		if(retval < 0)
 		{
 			continue;
 		}
-		if(fcntl(client_fd, F_SETFD, FD_CLOEXEC) < 0)
+		if(fcntl(retval, F_SETFD, FD_CLOEXEC) < 0)
 		{
-			close(client_fd);
+			close(retval);
 			continue;
 		}
-		if(connect(client_fd, p->ai_addr, p->ai_addrlen) < 0)
+		if(connect(retval, p->ai_addr, p->ai_addrlen) < 0)
 		{
-			close(client_fd);
+			close(retval);
 			continue;
 		}
 
-		retval = client_fd;
-		break;
+		reeaddrinfo(list);
+		return retval;
 	}
 
 	freeaddrinfo(list);
-	return retval;
+	return EAI_SYSTEM;
 }
 
 int tcp_server_create(uint16_t port)
