@@ -8,7 +8,7 @@ int tcp_client_connect(const char* name, const char* port)
 {
 	struct addrinfo* list = NULL;
 	struct addrinfo hints = {0};
-	hints.ai_family = AF_INET;
+	hints.ai_family = PF_INET;
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_protocol = IPPROTO_TCP;
 
