@@ -18,9 +18,9 @@ int tcp_client_connect(const char* name, const char* port)
 		return retval;
 	}
 
-	for(struct addrinfo* p = list; p != NULL; p = p->ai_next)
+	for(struct addrinfo* ptr = list; ptr != NULL; ptr = ptr->ai_next)
 	{
-		retval = socket(p->ai_family, p->ai_socktype, p->ai_protocol);
+		retval = socket(ptr->ai_family, ptr->ai_socktype, ptr->ai_protocol);
 		if(retval < 0)
 		{
 			continue;
@@ -30,7 +30,7 @@ int tcp_client_connect(const char* name, const char* port)
 			close(retval);
 			continue;
 		}
-		if(connect(retval, p->ai_addr, p->ai_addrlen) < 0)
+		if(connect(retval, ptr->ai_addr, ptr->ai_addrlen) < 0)
 		{
 			close(retval);
 			continue;
