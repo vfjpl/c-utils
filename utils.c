@@ -43,7 +43,7 @@ float util_atof(const char* str)
 {
 	return strtof(str, NULL);
 }
-uint32_t util_atou(const char* str)
+uint32_t util_atou32(const char* str)
 {
 	return strtoul(str, NULL, 0);
 }
@@ -143,7 +143,7 @@ string_t util_readfile(const char* filename)
 {
 	string_t str = {0};
 	FILE* file = fopen(filename, "re");
-	if(file)
+	if(file != NULL)
 	{
 		fseek(file, 0, SEEK_END);
 		str.size = ftell(file);
