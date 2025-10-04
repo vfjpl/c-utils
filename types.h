@@ -3,15 +3,15 @@
 
 #include <sys/param.h>
 #include <stdbool.h>
-
-typedef unsigned long ulong;
+#include <stdint.h>
 
 #define COUNTOF(array) (sizeof(array)/sizeof(*array))
 #define STATIC_ASSERT(...)
 
-#define SETBIT(a,i) ((a) |= 1<<(i))
-#define CLRBIT(a,i) ((a) &= ~(1<<(i)))
-#define ISSET(a,i) (((a) & (1<<(i))) != 0)
-#define ISCLR(a,i) (((a) & (1<<(i))) == 0)
+#define BIT(i) (1 << (i))
+#define SETBIT(a,i) ((a) |= BIT(i))
+#define CLRBIT(a,i) ((a) &= ~BIT(i))
+#define ISSET(a,i) (((a) & BIT(i)) != 0)
+#define ISCLR(a,i) (((a) & BIT(i)) == 0)
 
 #endif // TYPES_H_INCLUDED
