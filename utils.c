@@ -10,6 +10,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <errno.h>
+#include <time.h>
 
 
 typedef struct
@@ -42,6 +43,10 @@ void util_store32(void* ptr, uint32_t val)
 float util_atof(const char* str)
 {
 	return strtof(str, NULL);
+}
+long util_atol(const char* str)
+{
+	return strtol(str, NULL, 0);
 }
 uint32_t util_atou32(const char* str)
 {
@@ -128,6 +133,12 @@ void util_close(int* pfd)
 	int fd = *pfd;
 	*pfd = -1;
 	close(fd);
+}
+
+
+int util_isleap(int year)
+{
+	return dysize(year) - 365;
 }
 
 

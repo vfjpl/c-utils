@@ -17,6 +17,7 @@ void util_store16(void* ptr, uint16_t val);
 void util_store32(void* ptr, uint32_t val);
 
 float util_atof(const char* str);
+long util_atol(const char* str);
 uint32_t util_atou32(const char* str);
 
 char* util_strcpy_p(char* dest, const char* src);
@@ -38,6 +39,8 @@ const char* util_strafter_any(const char* str, const char* anyof);
 const char* util_strerror(void);
 
 void util_close(int* pfd);
+
+int util_isleap(int year);
 
 string_t util_asprintf(const char* format, ...);
 string_t util_readfile(const char* filename);
