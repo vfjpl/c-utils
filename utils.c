@@ -104,9 +104,10 @@ bool util_streq_n(const char* s1, const char* s2, size_t n)
 bool util_streq_until_any(const char* s1, const char* anyof, const char* s2)
 {
 	size_t len = strcspn(s1, anyof);
-	if(strcspn(s2, anyof) == len)
-		return util_memeq(s1, s2, len);
-	return false;
+	bool retval = strcspn(s2, anyof) == len;
+	if(retval)
+		retval = util_memeq(s1, s2, len);
+	return retval;
 }
 const char* util_strafter_any(const char* str, const char* anyof)
 {

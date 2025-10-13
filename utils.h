@@ -1,7 +1,7 @@
 #ifndef UTILS_H_INCLUDED
 #define UTILS_H_INCLUDED
 
-#include <sys/types.h>
+#include <sys/param.h>
 #include <stdbool.h>
 #include <stdint.h>
 
