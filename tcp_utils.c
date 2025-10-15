@@ -1,6 +1,7 @@
 #include <netdb.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 ///https://en.wikipedia.org/wiki/Berkeley_sockets
 
@@ -12,7 +13,7 @@ int tcp_client_connect(const char* name, const char* port)
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_protocol = IPPROTO_TCP;
 
-	int retval = getaddrinfo(name, port, &hints, &list);
+	int retval = -abs(getaddrinfo(name, port, &hints, &list));
 	if(retval < 0)
 	{
 		return retval;
@@ -41,7 +42,7 @@ int tcp_client_connect(const char* name, const char* port)
 	}
 
 	freeaddrinfo(list);
-	return EAI_SYSTEM;
+	return -abs(EAI_SYSTEM);
 }
 
 int tcp_server_create(uint16_t port)
