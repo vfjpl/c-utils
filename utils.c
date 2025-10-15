@@ -10,7 +10,6 @@
 #include <string.h>
 #include <stdio.h>
 #include <errno.h>
-#include <time.h>
 
 
 typedef struct
@@ -40,17 +39,17 @@ void util_store32(void* ptr, uint32_t val)
 }
 
 
-float util_atof(const char* str)
-{
-	return strtof(str, NULL);
-}
 long util_atol(const char* str)
 {
 	return strtol(str, NULL, 0);
 }
-uint32_t util_atou32(const char* str)
+unsigned long util_atoul(const char* str)
 {
 	return strtoul(str, NULL, 0);
+}
+float util_atof(const char* str)
+{
+	return strtof(str, NULL);
 }
 
 
@@ -92,12 +91,12 @@ void* util_mempcpy(void* dest, const void* src, size_t n)
 {
 	return mempcpy(dest, src, n);
 }
+
+
 bool util_memeq(const void* p1, const void* p2, size_t n)
 {
 	return !bcmp(p1, p2, n);
 }
-
-
 bool util_streq(const char* s1, const char* s2)
 {
 	return !strcmp(s1, s2);
@@ -133,12 +132,6 @@ void util_close(int* pfd)
 	int fd = *pfd;
 	*pfd = -1;
 	close(fd);
-}
-
-
-int util_isleap(int year)
-{
-	return dysize(year) - 365;
 }
 
 
