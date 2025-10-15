@@ -16,9 +16,9 @@ uint32_t util_load32(const void* ptr);
 void util_store16(void* ptr, uint16_t val);
 void util_store32(void* ptr, uint32_t val);
 
+float util_atof(const char* str);
 long util_atol(const char* str);
 unsigned long util_atoul(const char* str);
-float util_atof(const char* str);
 
 char* util_strcpy_p(char* dest, const char* src);
 size_t util_strcpy_l(char* dest, const char* src);

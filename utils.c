@@ -40,6 +40,10 @@ void util_store32(void* ptr, uint32_t val)
 }
 
 
+float util_atof(const char* str)
+{
+	return strtof(str, NULL);
+}
 long util_atol(const char* str)
 {
 	return strtol(str, NULL, 0);
@@ -47,10 +51,6 @@ long util_atol(const char* str)
 unsigned long util_atoul(const char* str)
 {
 	return strtoul(str, NULL, 0);
-}
-float util_atof(const char* str)
-{
-	return strtof(str, NULL);
 }
 
 
