@@ -97,12 +97,12 @@ bool util_memeq(const void* p1, const void* p2, size_t n)
 bool util_streq_until_any(const char* s1, const char* anyof, const char* s2)
 {
 	size_t len = strcspn(s1, anyof);
-	bool retval = strcspn(s2, anyof) == len;
+	bool retval = (strcspn(s2, anyof) == len);
 	if(retval)
 		retval = util_memeq(s1, s2, len);
 	return retval;
 }
-const char* util_strafter_any(const char* str, const char* anyof)
+const char* util_str_after_any(const char* str, const char* anyof)
 {
 	str += strcspn(str, anyof);
 	str += strspn(str, anyof);
@@ -164,4 +164,24 @@ string_t util_readfile(const char* filename)
 		fclose(file);
 	}
 	return str;
+}
+void util_copyfile(const char* src, const char* dest)
+{
+	FILE* srcfile = fopen(src, "re");
+	if(srcfile != NULL)
+	{
+		FILE* destfile = fopen(dest, "we");
+		if(destfile != NULL)
+		{
+			for(;;)
+			{
+				int ch = getc(srcfile);
+				if(ch == EOF)
+					break;
+				putc(ch, destfile);
+			}
+			fclose(destfile);
+		}
+		fclose(srcfile);
+	}
 }
