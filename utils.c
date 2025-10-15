@@ -10,6 +10,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <errno.h>
+#include <time.h>
 
 
 typedef struct
@@ -53,20 +54,6 @@ float util_atof(const char* str)
 }
 
 
-void util_swab(const void* src, void* dest, ssize_t n)
-{
-	swab(src, dest, n);
-}
-void util_bzero(void* ptr, size_t n)
-{
-	bzero(ptr, n);
-}
-void* util_mempcpy(void* dest, const void* src, size_t n)
-{
-	return mempcpy(dest, src, n);
-}
-
-
 char* util_strcpy_p(char* dest, const char* src)
 {
 	return stpcpy(dest, src);
@@ -97,7 +84,7 @@ bool util_streq(const char* s1, const char* s2)
 {
 	return !strcmp(s1, s2);
 }
-bool util_streq_n(const char* s1, const char* s2, size_t n)
+bool util_strneq(const char* s1, const char* s2, size_t n)
 {
 	return !strncmp(s1, s2, n);
 }
@@ -105,6 +92,8 @@ bool util_memeq(const void* p1, const void* p2, size_t n)
 {
 	return !bcmp(p1, p2, n);
 }
+
+
 bool util_streq_until_any(const char* s1, const char* anyof, const char* s2)
 {
 	size_t len = strcspn(s1, anyof);
@@ -121,17 +110,33 @@ const char* util_strafter_any(const char* str, const char* anyof)
 }
 
 
+void util_bzero(void* ptr, size_t n)
+{
+	bzero(ptr, n);
+}
+void util_swab(const void* src, void* dest, ssize_t n)
+{
+	swab(src, dest, n);
+}
+void* util_mempcpy(void* dest, const void* src, size_t n)
+{
+	return mempcpy(dest, src, n);
+}
+
+
 const char* util_strerror(void)
 {
 	return strerror(errno);
 }
-
-
 void util_close(int* pfd)
 {
 	int fd = *pfd;
 	*pfd = -1;
 	close(fd);
+}
+int util_isleap(int year)
+{
+	return dysize(year) - 365;
 }
 
 
