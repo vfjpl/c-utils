@@ -84,7 +84,7 @@ bool util_streq(const char* s1, const char* s2)
 {
 	return !strcmp(s1, s2);
 }
-bool util_strneq(const char* s1, const char* s2, size_t n)
+bool util_streq_n(const char* s1, const char* s2, size_t n)
 {
 	return !strncmp(s1, s2, n);
 }
