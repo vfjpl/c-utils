@@ -20,8 +20,8 @@ long util_atol(const char* str);
 unsigned long util_atoul(const char* str);
 float util_atof(const char* str);
 
-void util_bzero(void* ptr, size_t n);
 void util_swab(const void* src, void* dest, ssize_t n);
+void util_bzero(void* ptr, size_t n);
 void* util_mempcpy(void* dest, const void* src, size_t n);
 
 char* util_strcpy_p(char* dest, const char* src);

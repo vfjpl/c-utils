@@ -53,13 +53,13 @@ float util_atof(const char* str)
 }
 
 
-void util_bzero(void* ptr, size_t n)
-{
-	bzero(ptr, n);
-}
 void util_swab(const void* src, void* dest, ssize_t n)
 {
 	swab(src, dest, n);
+}
+void util_bzero(void* ptr, size_t n)
+{
+	bzero(ptr, n);
 }
 void* util_mempcpy(void* dest, const void* src, size_t n)
 {
