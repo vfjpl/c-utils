@@ -20,19 +20,19 @@ long util_atol(const char* str);
 unsigned long util_atoul(const char* str);
 float util_atof(const char* str);
 
+void util_bzero(void* ptr, size_t n);
+void util_swab(const void* src, void* dest, ssize_t n);
+void* util_mempcpy(void* dest, const void* src, size_t n);
+
 char* util_strcpy_p(char* dest, const char* src);
 size_t util_strcpy_l(char* dest, const char* src);
 void util_strcpy_n(char* dest, const char* src, size_t n);
 char* util_strcpy_np(char* dest, const char* src, size_t n);
 size_t util_strcpy_nl(char* dest, const char* src, size_t n);
 
-void util_bzero(void* ptr, size_t n);
-void util_swab(const void* src, void* dest, ssize_t n);
-void* util_mempcpy(void* dest, const void* src, size_t n);
-
-bool util_memeq(const void* p1, const void* p2, size_t n);
 bool util_streq(const char* s1, const char* s2);
 bool util_streq_n(const char* s1, const char* s2, size_t n);
+bool util_memeq(const void* p1, const void* p2, size_t n);
 bool util_streq_until_any(const char* s1, const char* anyof, const char* s2);
 const char* util_strafter_any(const char* str, const char* anyof);
 
