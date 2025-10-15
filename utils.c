@@ -173,13 +173,10 @@ void util_copyfile(const char* src, const char* dest)
 		FILE* destfile = fopen(dest, "we");
 		if(destfile != NULL)
 		{
-			for(;;)
-			{
-				int ch = getc(srcfile);
-				if(ch == EOF)
-					break;
+			int ch;
+			while((ch = getc(srcfile)) != EOF)
 				putc(ch, destfile);
-			}
+
 			fclose(destfile);
 		}
 		fclose(srcfile);
