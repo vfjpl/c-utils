@@ -96,10 +96,10 @@ bool util_memeq(const void* p1, const void* p2, size_t n)
 
 bool util_streq_until_any(const char* s1, const char* anyof, const char* s2)
 {
-	size_t len = strcspn(s1, anyof);
-	bool retval = (strcspn(s2, anyof) == len);
+	size_t size = strcspn(s1, anyof);
+	bool retval = (strcspn(s2, anyof) == size);
 	if(retval)
-		retval = util_memeq(s1, s2, len);
+		retval = util_memeq(s1, s2, size);
 	return retval;
 }
 const char* util_str_after_any(const char* str, const char* anyof)
@@ -149,10 +149,10 @@ string_t util_asprintf(const char* format, ...)
 	va_end(args);
 	return str;
 }
-string_t util_readfile(const char* filename)
+string_t util_readfile(const char* name)
 {
 	string_t str = {0};
-	FILE* file = fopen(filename, "re");
+	FILE* file = fopen(name, "re");
 	if(file != NULL)
 	{
 		fseek(file, 0, SEEK_END);
@@ -165,20 +165,20 @@ string_t util_readfile(const char* filename)
 	}
 	return str;
 }
-void util_copyfile(const char* src, const char* dest)
+void util_copyfile(const char* src_name, const char* dest_name)
 {
-	FILE* srcfile = fopen(src, "re");
-	if(srcfile != NULL)
+	FILE* src_file = fopen(src_name, "re");
+	if(src_file != NULL)
 	{
-		FILE* destfile = fopen(dest, "we");
-		if(destfile != NULL)
+		FILE* dest_file = fopen(dest_name, "we");
+		if(dest_file != NULL)
 		{
 			int ch;
-			while((ch = getc(srcfile)) != EOF)
-				putc(ch, destfile);
+			while((ch = getc(src_file)) != EOF)
+				putc(ch, dest_file);
 
-			fclose(destfile);
+			fclose(dest_file);
 		}
-		fclose(srcfile);
+		fclose(src_file);
 	}
 }

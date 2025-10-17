@@ -1,6 +1,6 @@
 #include <pthread.h>
 
-int pthread_create_detached(void*(*func)(void*), void* arg)
+int pthread_create_detached(void* (*func)(void*), void* arg)
 {
 	pthread_t id;
 	pthread_attr_t attr;

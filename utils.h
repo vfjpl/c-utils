@@ -42,7 +42,7 @@ void util_close(int* pfd);
 int util_isleap(int year);
 
 string_t util_asprintf(const char* format, ...);
-string_t util_readfile(const char* filename);
-void util_copyfile(const char* src, const char* dest);
+string_t util_readfile(const char* name);
+void util_copyfile(const char* src_name, const char* dest_name);
 
 #endif // UTILS_H_INCLUDED
