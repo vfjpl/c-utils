@@ -1,7 +1,8 @@
 #include <netdb.h>
 #include <fcntl.h>
-#include <unistd.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 ///https://en.wikipedia.org/wiki/Berkeley_sockets
 
@@ -44,6 +45,13 @@ int tcp_client_connect(const char* name, const char* port)
 
 	freeaddrinfo(list);
 	return -abs(EAI_SYSTEM);
+}
+
+int tcp_client_connect_u16(const char* name, uint16_t port)
+{
+	char buff[8];
+	sprintf(buff, "%hu", port);
+	return tcp_client_connect(name, buff);
 }
 
 int tcp_server_create(uint16_t port)
