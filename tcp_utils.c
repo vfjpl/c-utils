@@ -6,7 +6,7 @@
 
 ///https://en.wikipedia.org/wiki/Berkeley_sockets
 
-int tcp_client_connect(const char* name, const char* port)
+int tcp_client_connect(const char* host, const char* port)
 {
 	struct addrinfo* list = NULL;
 	struct addrinfo hints = {0};
@@ -15,7 +15,7 @@ int tcp_client_connect(const char* name, const char* port)
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_protocol = IPPROTO_TCP;
 
-	int retval = -abs(getaddrinfo(name, port, &hints, &list));
+	int retval = -abs(getaddrinfo(host, port, &hints, &list));
 	if(retval < 0)
 	{
 		return retval;
@@ -47,11 +47,11 @@ int tcp_client_connect(const char* name, const char* port)
 	return -abs(EAI_SYSTEM);
 }
 
-int tcp_client_connect_u16(const char* name, uint16_t port)
+int tcp_client_connect_u16(const char* host, uint16_t port)
 {
 	char buff[8];
 	sprintf(buff, "%hu", port);
-	return tcp_client_connect(name, buff);
+	return tcp_client_connect(host, buff);
 }
 
 

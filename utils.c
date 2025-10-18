@@ -149,10 +149,10 @@ string_t util_asprintf(const char* format, ...)
 	va_end(args);
 	return str;
 }
-string_t util_readfile(const char* name)
+string_t util_readfile(const char* path)
 {
 	string_t str = {0};
-	FILE* file = fopen(name, "re");
+	FILE* file = fopen(path, "re");
 	if(file != NULL)
 	{
 		fseek(file, 0, SEEK_END);
@@ -165,12 +165,12 @@ string_t util_readfile(const char* name)
 	}
 	return str;
 }
-void util_copyfile(const char* src_name, const char* dest_name)
+void util_copyfile(const char* src_path, const char* dest_path)
 {
-	FILE* src_file = fopen(src_name, "re");
+	FILE* src_file = fopen(src_path, "re");
 	if(src_file != NULL)
 	{
-		FILE* dest_file = fopen(dest_name, "we");
+		FILE* dest_file = fopen(dest_path, "we");
 		if(dest_file != NULL)
 		{
 			int ch;
