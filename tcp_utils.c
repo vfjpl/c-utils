@@ -15,10 +15,10 @@ int tcp_client_connect(const char* host, const char* port)
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_protocol = IPPROTO_TCP;
 
-	int retval = -abs(getaddrinfo(host, port, &hints, &list));
-	if(retval < 0)
+	int retval = getaddrinfo(host, port, &hints, &list);
+	if(retval != 0)
 	{
-		return retval;
+		return -abs(retval);
 	}
 
 	for(struct addrinfo* ptr = list; ptr != NULL; ptr = ptr->ai_next)
