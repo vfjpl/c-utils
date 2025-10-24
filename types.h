@@ -9,6 +9,7 @@
 #define STATIC_ASSERT(...)
 
 #define BIT(i) (1 << (i))
+#define GETBIT(a,i) (((a) >> (i)) & 1)
 #define SETBIT(a,i) ((a) |= BIT(i))
 #define CLRBIT(a,i) ((a) &= ~BIT(i))
 #define ISSET(a,i) (((a) & BIT(i)) != 0)
