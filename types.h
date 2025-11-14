@@ -4,6 +4,7 @@
 #include <sys/param.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <stddef.h>
 
 #define COUNTOF(array) (sizeof(array)/sizeof(*array))
 #define STATIC_ASSERT(...)
