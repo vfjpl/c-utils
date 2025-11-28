@@ -51,5 +51,12 @@ static void queue_push_buff(queue_t* dest, buff_t src)
 #define queue_push_ptr_size(dest, ptr, size) impl_ptr_size_impl(queue_push_buff, dest, ptr, size)
 #define queue_push_type_val(dest, type, val) impl_type_val_impl(queue_push_ptr_size, dest, type, val)
 
+static void queue_pop_size(queue_t* dest, long size)
+{
+	const long new_read = dest->read + size;
+	dest->read = (new_read != dest->buff.size) ? new_read : 0;
+}
+#define queue_pop_type(dest, type) queue_pop_size(dest, sizeof(type))
+
 
 #endif // DYNAMIC_H_INCLUDED
