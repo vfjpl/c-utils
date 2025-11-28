@@ -19,12 +19,12 @@ static buff_t impl_buff_push(buff_t dest, buff_t src)
 	memcpy(buff.ptr + dest.size, src.ptr, src.size);
 	return buff;
 }
-#define impl_push_ptr_size(func, dest, ptr, size) func(dest, (buff_t){(void*)ptr, size})
+#define impl_push_ptr_size(func, dest, ptr, size) func(dest, ((buff_t){(void*)ptr, size}))
 #define impl_push_type_val(func, dest, type, val) func(dest, &(type){val}, sizeof(type))
 
 #define buff_push(dest, src) dest = impl_buff_push(dest, src)
 #define buff_push_ptr_size(dest, ptr, size) impl_push_ptr_size(buff_push, dest, ptr, size)
-#define buff_push_type_val(dest, type, val) impl_push_type_val(buff_push, dest, ptr, size)
+#define buff_push_type_val(dest, type, val) impl_push_type_val(buff_push_ptr_size, dest, type, val)
 
 
 typedef struct
@@ -48,8 +48,8 @@ static void queue_push(queue_t* dest, buff_t src)
 		buff_push(dest->buff, src);
 	}
 }
-#define queue_push_ptr_size(dest, ptr, size) impl_push_ptr_size(queue_push, &dest, ptr, size)
-#define queue_push_type_val(dest, type, val) impl_push_type_val(queue_push, &dest, type, val)
+#define queue_push_ptr_size(dest, ptr, size) impl_push_ptr_size(queue_push, dest, ptr, size)
+#define queue_push_type_val(dest, type, val) impl_push_type_val(queue_push_ptr_size, dest, type, val)
 
 
 #endif // DYNAMIC_H_INCLUDED
