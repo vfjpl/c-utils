@@ -4,9 +4,9 @@
 #include <sys/param.h>
 #include <stdbool.h>
 #include <stdint.h>
-#include <stddef.h>
 
 #define COUNTOF(array) (sizeof(array)/sizeof(*array))
+#define UNUSED(...)
 #define STATIC_ASSERT(...)
 
 #define BIT(i) (1 << (i))
