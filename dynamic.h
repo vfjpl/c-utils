@@ -36,12 +36,12 @@ typedef struct
 
 static void queue_push_buff(queue_t* dest, buff_t src)
 {
-	const long write_old = dest->write;
-	if(write_old != dest->read)
+	const long old_write = dest->write;
+	if(old_write != dest->read)
 	{
-		const long write_new = write_old + src.size;
-		dest->write = (write_new != dest->buff.size) ? write_new : 0;
-		memcpy(dest->buff.ptr + write_old, src.ptr, src.size);
+		const long new_write = old_write + src.size;
+		dest->write = (new_write != dest->buff.size) ? new_write : 0;
+		memcpy(dest->buff.ptr + old_write, src.ptr, src.size);
 	}
 	else
 	{
