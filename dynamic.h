@@ -19,8 +19,8 @@ static buff_t impl_buff_push_buff_impl(buff_t dest, buff_t src)
 	memcpy(buff.ptr + dest.size, src.ptr, src.size);
 	return buff;
 }
-#define impl_ptr_size_impl(func, dest, ptr, size) func(dest, ((buff_t){(void*)ptr, size}))
-#define impl_type_val_impl(func, dest, type, val) func(dest, &(type){val}, sizeof(type))
+#define impl_ptr_size_impl(push_func, dest, ptr, size) push_func(dest, ((buff_t){(void*)ptr, size}))
+#define impl_type_val_impl(push_func, dest, type, val) push_func(dest, &(type){val}, sizeof(type))
 
 #define buff_push_buff(dest, src) dest = impl_buff_push_buff_impl(dest, src)
 #define buff_push_ptr_size(dest, ptr, size) impl_ptr_size_impl(buff_push_buff, dest, ptr, size)
