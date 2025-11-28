@@ -13,11 +13,11 @@ typedef struct
 
 static buff_t impl_buff_push(buff_t dest, buff_t src)
 {
-	dynbuf_t buf = {0};
-	buf.size = dest.size + src.size;
-	buf.ptr = realloc(dest.ptr, buf.size);
-	memcpy(buf.ptr + dest.size, src.ptr, src.size);
-	return buf;
+	buff_t buff = {0};
+	buff.size = dest.size + src.size;
+	buff.ptr = realloc(dest.ptr, buff.size);
+	memcpy(buff.ptr + dest.size, src.ptr, src.size);
+	return buff;
 }
 #define impl_push_ptr_size(func, dest, ptr, size) func(dest, (buff_t){(void*)ptr, size})
 #define impl_push_type_val(func, dest, type, val) func(dest, &(type){val}, sizeof(type))
