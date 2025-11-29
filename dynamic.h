@@ -34,14 +34,28 @@ static buff_t impl_buff_push_buff_impl(buff_t dest, buff_t src)
 typedef struct
 {
 	buff_t buff;
-	long write;
 	long read;
+	long write;
 } queue_t;
 
 
 static void queue_push_buff(queue_t* dest, buff_t src)
 {
-
+	const long old_write = dest->write;
+	const long new_write = old_write + src.size;
+	const bool is_not_end = (new_write < dest->buff.size);
+	const long new_write_on_push = is_not_end ? old_write : new_write;
+	const long new_write_wrapped = is_not_end ? new_write : 0;
+	if(new_write_wrapped != dest->read)//is_not_full
+	{
+		dest->write = new_write_wrapped;
+		memcpy(dest->buff.ptr + old_write, src.ptr, src.size);
+	}
+	else
+	{
+		dest->write = new_write_on_push;
+		buff_push_buff(dest->buff, src);
+	}
 }
 #define queue_push_ptr_size(dest, ptr, size) impl_ptr_size_impl(queue_push_buff, dest, ptr, size)
 #define queue_push_type_val(dest, type, val) impl_type_val_impl(queue_push_ptr_size, dest, type, val)
