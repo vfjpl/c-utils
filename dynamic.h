@@ -69,7 +69,6 @@ static void queue_push_buff(queue_t* dest, buff_t src)
 #define queue_push_var(dest, var)             template_var_buff(queue_push_buff, dest, var)
 #define queue_push_type_val(dest, type, val)  template_type_val_buff(queue_push_buff, dest, type, val)
 
-
 static void queue_pop_buff(queue_t* src, buff_t dest)
 {
 	const long old_head = src->head;
@@ -81,11 +80,9 @@ static void queue_pop_buff(queue_t* src, buff_t dest)
 #define queue_pop_ptr(src, ptr)             template_ptr_buff(queue_pop_buff, src, ptr)
 #define queue_pop_var(src, var)             template_var_buff(queue_pop_buff, src, var)
 
+#define queue_front_type(queue, type)  *(type*)((queue)->buff.ptr + (queue)->head)
 
-#define queue_front_type(queue, type)  *(type*)(queue->buff.ptr + queue->head)
-
-
-#define queue_is_empty(queue)  (queue->head == queue->tail)
+#define queue_is_empty(queue)  ((queue)->head == (queue)->tail)
 ///end user interface
 
 
