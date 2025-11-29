@@ -21,13 +21,19 @@ static buff_t impl_buff_push_buff_impl(buff_t dest, buff_t src)
 	memcpy(buff.ptr + dest.size, src.ptr, src.size);
 	return buff;
 }
-#define impl_ptr_size_impl(func, container, ptr, size) func(container, ((buff_t){(void*)ptr, size}))
-#define impl_type_val_impl(func, container, type, val) func(container, &(type){val}, sizeof(type))
+#define template_ptr_size_buff(func, container, ptr, size) func(container, ((buff_t){(void*)ptr, size}))
+#define template_ptr_buff(func, container, ptr) template_ptr_size_buff(func, container, ptr, sizeof(*ptr))
+#define template_var_buff(func, container, var) template_ptr_size_buff(func, container, &var, sizeof(var))
+#define template_type_val_buff(func, container, type, val) template_ptr_size_buff(func, container, &(type){val}, sizeof(type))
 
 
+///start interface
 #define buff_push_buff(dest, src) dest = impl_buff_push_buff_impl(dest, src)
-#define buff_push_ptr_size(dest, ptr, size) impl_ptr_size_impl(buff_push_buff, dest, ptr, size)
-#define buff_push_type_val(dest, type, val) impl_type_val_impl(buff_push_ptr_size, dest, type, val)
+#define buff_push_ptr_size(dest, ptr, size) template_ptr_size_buff(buff_push_buff, dest, ptr, size)
+#define buff_push_ptr(dest, ptr) template_ptr_buff(buff_push_buff, dest, ptr)
+#define buff_push_var(dest, var) template_var_buff(buff_push_buff, dest, var)
+#define buff_push_type_val(dest, type, val) template_type_val_buff(buff_push_buff, dest, type, val)
+///end interface
 
 
 
@@ -39,6 +45,7 @@ typedef struct
 } queue_t;
 
 
+///start interface
 static void queue_push_buff(queue_t* dest, buff_t src)
 {
 	const long old_write = dest->write;
@@ -57,11 +64,10 @@ static void queue_push_buff(queue_t* dest, buff_t src)
 		buff_push_buff(dest->buff, src);
 	}
 }
-#define queue_push_ptr_size(dest, ptr, size) impl_ptr_size_impl(queue_push_buff, dest, ptr, size)
-#define queue_push_type_val(dest, type, val) impl_type_val_impl(queue_push_ptr_size, dest, type, val)
-
-#define queue_is_empty(dest) (dest->read == dest->write)
-#define queue_front_type(dest, type) *(type*)(dest->buff.ptr + dest->read)
+#define queue_push_ptr_size(dest, ptr, size) template_ptr_size_buff(queue_push_buff, dest, ptr, size)
+#define queue_push_ptr(dest, ptr) template_ptr_buff(queue_push_buff, dest, ptr)
+#define queue_push_var(dest, var) template_var_buff(queue_push_buff, dest, var)
+#define queue_push_type_val(dest, type, val) template_type_val_buff(queue_push_buff, dest, type, val)
 
 static void queue_pop_buff(queue_t* src, buff_t dest)
 {
@@ -70,8 +76,10 @@ static void queue_pop_buff(queue_t* src, buff_t dest)
 	src->read = (new_read < src->buff.size) ? new_read : 0;
 	memcpy(dest.ptr, src->buff.ptr + old_read, dest.size);
 }
-#define queue_pop_ptr(src, ptr) impl_ptr_size_impl(queue_pop_buff, ptr, sizeof(*ptr))
-#define queue_pop_var(src, var) impl_ptr_size_impl(queue_pop_buff, &var, sizeof(var))
+#define queue_pop_ptr_size(src, ptr, size) template_ptr_size_buff(queue_pop_buff, src, ptr, size)
+#define queue_pop_ptr(src, ptr) template_ptr_buff(queue_pop_buff, src, ptr)
+#define queue_pop_var(src, var) template_var_buff(queue_pop_buff, src, var)
+///end interface
 
 
 #endif // DYNAMIC_H_INCLUDED
