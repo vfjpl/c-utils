@@ -1,7 +1,6 @@
 #ifndef DYNAMIC_H_INCLUDED
 #define DYNAMIC_H_INCLUDED
 
-#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -53,17 +52,15 @@ static void queue_push_buff(queue_t* dest, buff_t src)
 {
 	const long old_tail = dest->tail;
 	const long new_tail = old_tail + src.size;
-	const bool is_not_end = (new_tail < dest->buff.size);
-	const long new_tail_on_push = is_not_end ? old_tail : new_tail;
-	const long new_tail_wrapped = is_not_end ? new_tail : 0;
-	if(new_tail_wrapped != dest->head)//is_not_full
+	const long new_tail_wrapped = (new_tail < dest->buff.size) ? new_tail : 0;
+	if(new_tail_wrapped != dest->head)
 	{
 		dest->tail = new_tail_wrapped;
 		memcpy(dest->buff.ptr + old_tail, src.ptr, src.size);
 	}
 	else
 	{
-		dest->tail = new_tail_on_push;
+		//bug: fix head
 		buff_push_buff(dest->buff, src);
 	}
 }
