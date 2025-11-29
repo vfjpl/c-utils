@@ -34,8 +34,8 @@ static buff_t impl_buff_push_buff_impl(buff_t dest, buff_t src)
 typedef struct
 {
 	buff_t buff;
-	long read;
 	long write;
+	long read;
 } queue_t;
 
 
@@ -61,11 +61,10 @@ static void queue_push_buff(queue_t* dest, buff_t src)
 #define queue_push_type_val(dest, type, val) impl_type_val_impl(queue_push_ptr_size, dest, type, val)
 
 
-static void queue_pop_size(queue_t* dest, long size)
+static bool queue_is_empty(const queue_t* dest)
 {
-
+	return (dest->read == dest->write);
 }
-#define queue_pop_type(dest, type) queue_pop_size(dest, sizeof(type))
 
 
 #endif // DYNAMIC_H_INCLUDED
