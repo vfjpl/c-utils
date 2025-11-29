@@ -21,8 +21,8 @@ static buff_t impl_buff_push_buff_impl(buff_t dest, buff_t src)
 	memcpy(buff.ptr + dest.size, src.ptr, src.size);
 	return buff;
 }
-#define impl_ptr_size_impl(func, dest, ptr, size) func(dest, ((buff_t){(void*)ptr, size}))
-#define impl_type_val_impl(func, dest, type, val) func(dest, &(type){val}, sizeof(type))
+#define impl_ptr_size_impl(func, container, ptr, size) func(container, ((buff_t){(void*)ptr, size}))
+#define impl_type_val_impl(func, container, type, val) func(container, &(type){val}, sizeof(type))
 
 
 #define buff_push_buff(dest, src) dest = impl_buff_push_buff_impl(dest, src)
@@ -70,6 +70,8 @@ static void queue_pop_buff(queue_t* src, buff_t dest)
 	src->read = (new_read < src->buff.size) ? new_read : 0;
 	memcpy(dest.ptr, src->buff.ptr + old_read, dest.size);
 }
+#define queue_pop_ptr(src, ptr) impl_ptr_size_impl(queue_pop_buff, ptr, sizeof(*ptr))
+#define queue_pop_var(src, var) impl_ptr_size_impl(queue_pop_buff, &var, sizeof(var))
 
 
 #endif // DYNAMIC_H_INCLUDED
