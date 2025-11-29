@@ -34,8 +34,8 @@ static buff_t impl_buff_push_buff_impl(buff_t dest, buff_t src)
 typedef struct
 {
 	buff_t buff;
-	long write;
 	long read;
+	long write;
 } queue_t;
 
 
@@ -60,10 +60,15 @@ static void queue_push_buff(queue_t* dest, buff_t src)
 #define queue_push_ptr_size(dest, ptr, size) impl_ptr_size_impl(queue_push_buff, dest, ptr, size)
 #define queue_push_type_val(dest, type, val) impl_type_val_impl(queue_push_ptr_size, dest, type, val)
 
+#define queue_is_empty(dest) (dest->read == dest->write)
+#define queue_front_type(dest, type) *(type*)(dest->buff.ptr + dest->read)
 
-static bool queue_is_empty(const queue_t* dest)
+static void queue_pop_buff(queue_t* src, buff_t dest)
 {
-	return (dest->read == dest->write);
+	const long old_read = src->read;
+	const long new_read = old_read + dest.size;
+	src->read = (new_read < src->buff.size) ? new_read : 0;
+	memcpy(dest.ptr, src->buff.ptr + old_read, dest.size);
 }
 
 
