@@ -43,27 +43,27 @@ static buff_t impl_buff_push_buff_impl(buff_t dest, buff_t src)
 typedef struct
 {
 	buff_t buff;
-	long read;
-	long write;
+	long head;
+	long tail;
 } queue_t;
 
 
 ///start user interface
 static void queue_push_buff(queue_t* dest, buff_t src)
 {
-	const long old_write = dest->write;
-	const long new_write = old_write + src.size;
-	const bool is_not_end = (new_write < dest->buff.size);
-	const long new_write_on_push = is_not_end ? old_write : new_write;
-	const long new_write_wrapped = is_not_end ? new_write : 0;
-	if(new_write_wrapped != dest->read)//is_not_full
+	const long old_tail = dest->tail;
+	const long new_tail = old_tail + src.size;
+	const bool is_not_end = (new_tail < dest->buff.size);
+	const long new_tail_on_push = is_not_end ? old_tail : new_tail;
+	const long new_tail_wrapped = is_not_end ? new_tail : 0;
+	if(new_tail_wrapped != dest->head)//is_not_full
 	{
-		dest->write = new_write_wrapped;
-		memcpy(dest->buff.ptr + old_write, src.ptr, src.size);
+		dest->tail = new_tail_wrapped;
+		memcpy(dest->buff.ptr + old_tail, src.ptr, src.size);
 	}
 	else
 	{
-		dest->write = new_write_on_push;
+		dest->tail = new_tail_on_push;
 		buff_push_buff(dest->buff, src);
 	}
 }
@@ -75,20 +75,20 @@ static void queue_push_buff(queue_t* dest, buff_t src)
 
 static void queue_pop_buff(queue_t* src, buff_t dest)
 {
-	const long old_read = src->read;
-	const long new_read = old_read + dest.size;
-	src->read = (new_read < src->buff.size) ? new_read : 0;
-	memcpy(dest.ptr, src->buff.ptr + old_read, dest.size);
+	const long old_head = src->head;
+	const long new_head = old_head + dest.size;
+	src->head = (new_head < src->buff.size) ? new_head : 0;
+	memcpy(dest.ptr, src->buff.ptr + old_head, dest.size);
 }
 #define queue_pop_ptr_size(src, ptr, size)  template_ptr_size_buff(queue_pop_buff, src, ptr, size)
 #define queue_pop_ptr(src, ptr)             template_ptr_buff(queue_pop_buff, src, ptr)
 #define queue_pop_var(src, var)             template_var_buff(queue_pop_buff, src, var)
 
 
-#define queue_front_type(queue, type)  *(type*)(queue->buff.ptr + queue->read)
+#define queue_front_type(queue, type)  *(type*)(queue->buff.ptr + queue->head)
 
 
-#define queue_is_empty(queue)  (queue->read == queue->write)
+#define queue_is_empty(queue)  (queue->head == queue->tail)
 ///end user interface
 
 
