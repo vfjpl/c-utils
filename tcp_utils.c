@@ -49,7 +49,7 @@ int tcp_client_connect(const char* host, const char* port)
 
 int tcp_client_connect_u16(const char* host, uint16_t port)
 {
-	char buff[8];
+	char buff[16];
 	sprintf(buff, "%hu", port);
 	return tcp_client_connect(host, buff);
 }
