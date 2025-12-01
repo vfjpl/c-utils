@@ -77,6 +77,10 @@ static void impl_queue_pop_buff_impl(queue_t* src, buff_t dest)
 
 
 ///begin user interface
+#define queue_init_type(queue, type)          (queue).buff.size = sizeof(type)
+
+#define queue_is_empty(queue)                 ((queue).head == (queue).tail)
+
 #define queue_push_buff(dest, src)            impl_queue_push_buff_impl(&dest, src)
 #define queue_push_ptr_size(dest, ptr, size)  template_ptr_size_buff(queue_push_buff, dest, ptr, size)
 #define queue_push_ptr(dest, ptr)             template_ptr_buff(queue_push_buff, dest, ptr)
