@@ -2,8 +2,8 @@
 
 int pthread_create_detached(void* (*func)(void*), void* arg)
 {
-	pthread_t id;
-	pthread_attr_t attr;
+	pthread_t id = {0};
+	pthread_attr_t attr = {0};
 	int retval = pthread_attr_init(&attr);
 	if(retval == 0)
 	{
