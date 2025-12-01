@@ -26,6 +26,11 @@ static buff_t impl_buff_push_buff_impl(buff_t dest, buff_t src)
 	memcpy(buff.ptr + dest.size, src.ptr, src.size);
 	return buff;
 }
+static buff_t impl_buff_free_impl(buff_t buff)
+{
+	free(buff.ptr);
+	return (buff_t){0};
+}
 ///end implementation details
 
 
@@ -35,6 +40,9 @@ static buff_t impl_buff_push_buff_impl(buff_t dest, buff_t src)
 #define buff_push_ptr(dest, ptr)             template_ptr_buff(buff_push_buff, dest, ptr)
 #define buff_push_var(dest, var)             template_var_buff(buff_push_buff, dest, var)
 #define buff_push_type_val(dest, type, val)  template_type_val_buff(buff_push_buff, dest, type, val)
+
+#define buff_count(buff, type)               ((buff).size / sizeof(type))
+#define buff_free(buff)                      buff = impl_buff_free_impl(buff);
 ///end user interface
 
 
@@ -79,8 +87,6 @@ static void impl_queue_pop_buff_impl(queue_t* src, buff_t dest)
 ///begin user interface
 #define queue_init_type(queue, type)          (queue).buff.size = sizeof(type)
 
-#define queue_is_empty(queue)                 ((queue).head == (queue).tail)
-
 #define queue_push_buff(dest, src)            impl_queue_push_buff_impl(&dest, src)
 #define queue_push_ptr_size(dest, ptr, size)  template_ptr_size_buff(queue_push_buff, dest, ptr, size)
 #define queue_push_ptr(dest, ptr)             template_ptr_buff(queue_push_buff, dest, ptr)
@@ -91,6 +97,8 @@ static void impl_queue_pop_buff_impl(queue_t* src, buff_t dest)
 #define queue_pop_ptr_size(src, ptr, size)    template_ptr_size_buff(queue_pop_buff, src, ptr, size)
 #define queue_pop_ptr(src, ptr)               template_ptr_buff(queue_pop_buff, src, ptr)
 #define queue_pop_var(src, var)               template_var_buff(queue_pop_buff, src, var)
+
+#define queue_is_empty(queue)                 ((queue).head == (queue).tail)
 ///end user interface
 
 
