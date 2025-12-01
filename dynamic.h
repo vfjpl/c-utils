@@ -68,9 +68,10 @@ static void impl_queue_push_buff_impl(queue_t* dest, buff_t src)
 static void impl_queue_pop_buff_impl(queue_t* src, buff_t dest)
 {
 	const long old_head = src->head;
-	const long new_head = old_head + dest.size;
-	src->head = (new_head < src->buff.size) ? new_head : 0;
+	const long new_index = old_head + dest.size;
+	const long new_index_wrapped = (new_index < src->buff.size) ? new_index : 0;
 	memcpy(dest.ptr, src->buff.ptr + old_head, dest.size);
+	src->head = new_index_wrapped;
 }
 //end implementation details
 
