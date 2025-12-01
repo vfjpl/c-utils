@@ -96,10 +96,10 @@ bool util_memeq(const void* p1, const void* p2, size_t n)
 
 bool util_streq_until_anyof(const char* s1, const char* anyof, const char* s2)
 {
-	size_t size = strcspn(s1, anyof);
-	bool retval = (strcspn(s2, anyof) == size);
+	size_t len = strcspn(s1, anyof);
+	bool retval = (strcspn(s2, anyof) == len);
 	if(retval)
-		retval = util_memeq(s1, s2, size);
+		retval = util_memeq(s1, s2, len);
 	return retval;
 }
 const char* util_str_after_anyof(const char* str, const char* anyof)
