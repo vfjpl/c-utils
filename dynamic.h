@@ -52,17 +52,17 @@ typedef struct
 static void impl_queue_push_buff_impl(queue_t* dest, buff_t src)
 {
 	const long old_tail = dest->tail;
-	const long new_tail = old_tail + src.size;
-	const long new_tail_wrapped = (new_tail < dest->buff.size) ? new_tail : 0;
-	if(new_tail_wrapped != dest->head)
+	const long new_index = old_tail + src.size;
+	const long new_index_wrapped = (new_index < dest->buff.size) ? new_index : 0;
+	if(new_index_wrapped != dest->head)
 	{
-		dest->tail = new_tail_wrapped;
 		memcpy(dest->buff.ptr + old_tail, src.ptr, src.size);
+		dest->tail = new_index_wrapped;
 	}
 	else
 	{
-		//bug: fix head
 		buff_push_buff(dest->buff, src);
+		dest->head = new_index;
 	}
 }
 static void impl_queue_pop_buff_impl(queue_t* src, buff_t dest)
@@ -87,8 +87,6 @@ static void impl_queue_pop_buff_impl(queue_t* src, buff_t dest)
 #define queue_pop_ptr_size(src, ptr, size)    template_ptr_size_buff(queue_pop_buff, src, ptr, size)
 #define queue_pop_ptr(src, ptr)               template_ptr_buff(queue_pop_buff, src, ptr)
 #define queue_pop_var(src, var)               template_var_buff(queue_pop_buff, src, var)
-
-#define queue_is_empty(queue)                 (queue.head == queue.tail)
 ///end user interface
 
 
