@@ -56,7 +56,7 @@ unsigned long util_atoul(const char* str)
 
 char* util_strcpy_p(char* dest, const char* src)
 {
-	return stpcpy(dest, src);
+	return stpcpy(dest, src);//_GNU_SOURCE
 }
 size_t util_strcpy_l(char* dest, const char* src)
 {
@@ -70,7 +70,7 @@ void util_strcpy_n(char* dest, const char* src, size_t n)
 char* util_strcpy_np(char* dest, const char* src, size_t n)
 {
 	--n;
-	char* end = stpncpy(dest, src, n);
+	char* end = stpncpy(dest, src, n);//_GNU_SOURCE
 	dest[n] = '\0';
 	return end;
 }
@@ -116,11 +116,11 @@ void util_bzero(void* ptr, size_t n)
 }
 void util_swab(const void* src, void* dest, ssize_t n)
 {
-	swab(src, dest, n);
+	swab(src, dest, n);//_XOPEN_SOURCE
 }
 void* util_mempcpy(void* dest, const void* src, size_t n)
 {
-	return mempcpy(dest, src, n);
+	return mempcpy(dest, src, n);//_GNU_SOURCE
 }
 
 
@@ -145,7 +145,7 @@ string_t util_asprintf(const char* format, ...)
 	va_list args;
 	va_start(args, format);
 	string_t str = {0};
-	str.size = vasprintf(&str.ptr, format, args);
+	str.size = vasprintf(&str.ptr, format, args);//_GNU_SOURCE
 	va_end(args);
 	return str;
 }
