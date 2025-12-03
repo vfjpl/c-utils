@@ -12,11 +12,11 @@ typedef struct
 } buff_t;
 
 
-///begin implementation details
 #define template_ptr_size_buff(func, obj, ptr, size)  func(obj, ((buff_t){(void*)ptr, size}))
 #define template_ptr_buff(func, obj, ptr)             template_ptr_size_buff(func, obj, ptr, sizeof(*ptr))
 #define template_var_buff(func, obj, var)             template_ptr_size_buff(func, obj, &var, sizeof(var))
 #define template_type_val_buff(func, obj, type, val)  template_ptr_size_buff(func, obj, &(type){val}, sizeof(type))
+
 
 static buff_t impl_buff_push_buff_impl(buff_t dest, buff_t src)
 {
@@ -26,7 +26,6 @@ static buff_t impl_buff_push_buff_impl(buff_t dest, buff_t src)
 	memcpy(buff.ptr + dest.size, src.ptr, src.size);
 	return buff;
 }
-///end implementation details
 
 
 ///begin user interface
@@ -48,7 +47,6 @@ typedef struct
 } queue_t;
 
 
-///begin implementation details
 static void impl_queue_push_buff_impl(queue_t* dest, buff_t src)
 {
 	const long old_tail = dest->tail;
@@ -73,12 +71,9 @@ static void impl_queue_pop_buff_impl(queue_t* src, buff_t dest)
 	memcpy(dest.ptr, src->buff.ptr + old_head, dest.size);
 	src->head = new_index_wrapped;
 }
-//end implementation details
 
 
 ///begin user interface
-#define queue_init_type(queue, type)          (queue).buff.size = sizeof(type)
-
 #define queue_push_buff(dest, src)            impl_queue_push_buff_impl(&dest, src)
 #define queue_push_ptr_size(dest, ptr, size)  template_ptr_size_buff(queue_push_buff, dest, ptr, size)
 #define queue_push_ptr(dest, ptr)             template_ptr_buff(queue_push_buff, dest, ptr)
