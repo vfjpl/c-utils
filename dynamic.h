@@ -27,6 +27,11 @@ static buff_t impl_buff_push_buff_impl(buff_t dest, buff_t src)
 	memcpy(buff.ptr + dest.size, src.ptr, src.size);
 	return buff;
 }
+static buff_t impl_buff_free_impl(buff_t buff)
+{
+	free(buff.ptr);
+	return (buff_t){0};
+}
 
 
 ///begin user interface
@@ -36,8 +41,7 @@ static buff_t impl_buff_push_buff_impl(buff_t dest, buff_t src)
 #define buff_push_var(dest, var)             template_var_buff(buff_push_buff, dest, var)
 #define buff_push_type_val(dest, type, val)  template_type_val_buff(buff_push_buff, dest, type, val)
 
-#define buff_at(buff, type, index)           *((type*)buff.ptr + index)
-#define buff_size(buff, type)                (buff.size / sizeof(type))
+#define buff_free(buff)                      buff = impl_buff_free_impl(buff)
 ///end user interface
 
 
