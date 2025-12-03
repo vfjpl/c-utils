@@ -6,8 +6,8 @@
 #include <stdint.h>
 
 #define COUNTOF(array) (sizeof(array)/sizeof(*array))
-#define UNUSED(...)
-#define STATIC_ASSERT(...)
+#define UNUSED(arg) ((void)arg)
+#define STATIC_ASSERT(expr)
 
 #define BIT(i) (1 << (i))
 #define GETBIT(a,i) (((a) >> (i)) & 1)
