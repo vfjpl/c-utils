@@ -35,6 +35,9 @@ static buff_t impl_buff_push_buff_impl(buff_t dest, buff_t src)
 #define buff_push_ptr(dest, ptr)             template_ptr_buff(buff_push_buff, dest, ptr)
 #define buff_push_var(dest, var)             template_var_buff(buff_push_buff, dest, var)
 #define buff_push_type_val(dest, type, val)  template_type_val_buff(buff_push_buff, dest, type, val)
+
+#define buff_at(buff, type, index)           *((type*)buff.ptr + index)
+#define buff_size(buff, type)                (buff.size / sizeof(type))
 ///end user interface
 
 
@@ -90,8 +93,6 @@ static bool impl_queue_pop_buff_impl(queue_t* src, buff_t dest)
 #define queue_pop_ptr_size(src, ptr, size)    template_ptr_size_buff(queue_pop_buff, src, ptr, size)
 #define queue_pop_ptr(src, ptr)               template_ptr_buff(queue_pop_buff, src, ptr)
 #define queue_pop_var(src, var)               template_var_buff(queue_pop_buff, src, var)
-
-#define queue_is_empty(queue)                 ((queue).head == (queue).tail)
 ///end user interface
 
 
