@@ -13,10 +13,10 @@ typedef struct
 } buff_t;
 
 
-#define template_ptr_size_buff(func, obj, ptr, size)  func(obj, ((buff_t){(void*)ptr, size}))
-#define template_ptr_buff(func, obj, ptr)             template_ptr_size_buff(func, obj, ptr, sizeof(*ptr))
-#define template_var_buff(func, obj, var)             template_ptr_size_buff(func, obj, &var, sizeof(var))
-#define template_type_val_buff(func, obj, type, val)  template_ptr_size_buff(func, obj, &(type){val}, sizeof(type))
+#define template_buff_ptr_size(func, obj, ptr, size)  func(obj, ((buff_t){(void*)ptr, size}))
+#define template_buff_ptr(func, obj, ptr)             template_buff_ptr_size(func, obj, ptr, sizeof(*ptr))
+#define template_buff_var(func, obj, var)             template_buff_ptr_size(func, obj, &var, sizeof(var))
+#define template_buff_type_val(func, obj, type, val)  template_buff_ptr_size(func, obj, &(type){val}, sizeof(type))
 
 
 static buff_t impl_buff_push_buff_impl(buff_t dest, buff_t src)
@@ -36,10 +36,10 @@ static buff_t impl_buff_free_impl(buff_t buff)
 
 ///begin user interface
 #define buff_push_buff(dest, src)            dest = impl_buff_push_buff_impl(dest, src)
-#define buff_push_ptr_size(dest, ptr, size)  template_ptr_size_buff(buff_push_buff, dest, ptr, size)
-#define buff_push_ptr(dest, ptr)             template_ptr_buff(buff_push_buff, dest, ptr)
-#define buff_push_var(dest, var)             template_var_buff(buff_push_buff, dest, var)
-#define buff_push_type_val(dest, type, val)  template_type_val_buff(buff_push_buff, dest, type, val)
+#define buff_push_ptr_size(dest, ptr, size)  template_buff_ptr_size(buff_push_buff, dest, ptr, size)
+#define buff_push_ptr(dest, ptr)             template_buff_ptr(buff_push_buff, dest, ptr)
+#define buff_push_var(dest, var)             template_buff_var(buff_push_buff, dest, var)
+#define buff_push_type_val(dest, type, val)  template_buff_type_val(buff_push_buff, dest, type, val)
 
 #define buff_free(buff)                      buff = impl_buff_free_impl(buff)
 ///end user interface
@@ -88,15 +88,15 @@ static bool impl_queue_pop_buff_impl(queue_t* src, buff_t dest)
 
 ///begin user interface
 #define queue_push_buff(dest, src)            impl_queue_push_buff_impl(&dest, src)
-#define queue_push_ptr_size(dest, ptr, size)  template_ptr_size_buff(queue_push_buff, dest, ptr, size)
-#define queue_push_ptr(dest, ptr)             template_ptr_buff(queue_push_buff, dest, ptr)
-#define queue_push_var(dest, var)             template_var_buff(queue_push_buff, dest, var)
-#define queue_push_type_val(dest, type, val)  template_type_val_buff(queue_push_buff, dest, type, val)
+#define queue_push_ptr_size(dest, ptr, size)  template_buff_ptr_size(queue_push_buff, dest, ptr, size)
+#define queue_push_ptr(dest, ptr)             template_buff_ptr(queue_push_buff, dest, ptr)
+#define queue_push_var(dest, var)             template_buff_var(queue_push_buff, dest, var)
+#define queue_push_type_val(dest, type, val)  template_buff_type_val(queue_push_buff, dest, type, val)
 
 #define queue_pop_buff(src, dest)             impl_queue_pop_buff_impl(&src, dest)
-#define queue_pop_ptr_size(src, ptr, size)    template_ptr_size_buff(queue_pop_buff, src, ptr, size)
-#define queue_pop_ptr(src, ptr)               template_ptr_buff(queue_pop_buff, src, ptr)
-#define queue_pop_var(src, var)               template_var_buff(queue_pop_buff, src, var)
+#define queue_pop_ptr_size(src, ptr, size)    template_buff_ptr_size(queue_pop_buff, src, ptr, size)
+#define queue_pop_ptr(src, ptr)               template_buff_ptr(queue_pop_buff, src, ptr)
+#define queue_pop_var(src, var)               template_buff_var(queue_pop_buff, src, var)
 ///end user interface
 
 
