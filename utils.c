@@ -2,22 +2,13 @@
 #define _GNU_SOURCE
 #endif // _GNU_SOURCE
 
-#include <stdbool.h>
+#include "utils.h"
 #include <stdarg.h>
-#include <stdint.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
 #include <stdio.h>
 #include <errno.h>
 #include <time.h>
-
-
-typedef struct
-{
-	char* ptr;
-	long size;
-} string_t;
 
 
 uint16_t util_load16(const void* ptr)

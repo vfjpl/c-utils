@@ -1,4 +1,4 @@
-#include <pthread.h>
+#include "pthread_utils.h"
 
 int pthread_create_detached(void* (*func)(void*), void* arg)
 {
