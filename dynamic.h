@@ -84,6 +84,11 @@ static bool impl_queue_pop_buff_impl(queue_t* src, buff_t dest)
 	}
 	return retval;
 }
+static long impl_queue_size_impl(const queue_t* queue)
+{
+	const long diff = queue->tail - queue->head;
+	return diff + (-(long)(diff < 0) & queue->buff.size);
+}
 
 
 ///begin user interface
@@ -97,6 +102,8 @@ static bool impl_queue_pop_buff_impl(queue_t* src, buff_t dest)
 #define queue_pop_ptr_size(src, ptr, size)    template_buff_ptr_size(queue_pop_buff, src, ptr, size)
 #define queue_pop_ptr(src, ptr)               template_buff_ptr(queue_pop_buff, src, ptr)
 #define queue_pop_var(src, var)               template_buff_var(queue_pop_buff, src, var)
+
+#define queue_count(queue, type)              (impl_queue_size_impl(&queue) / sizeof(type))
 ///end user interface
 
 
