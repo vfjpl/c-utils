@@ -9,8 +9,9 @@ int pthread_create_detached(void* (*func)(void*), void* arg)
 	{
 		retval = pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
 		if(retval == 0)
+		{
 			retval = pthread_create(&id, &attr, func, arg);
-
+		}
 		pthread_attr_destroy(&attr);
 	}
 	return retval;
