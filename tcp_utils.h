@@ -1,7 +1,9 @@
 #ifndef TCP_UTILS_H_INCLUDED
 #define TCP_UTILS_H_INCLUDED
 
+#include <arpa/inet.h>
 #include <stdbool.h>
+#include <unistd.h>
 #include <netdb.h>
 
 int tcp_client_connect(const char* host, const char* port);
