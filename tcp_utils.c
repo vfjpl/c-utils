@@ -1,9 +1,8 @@
 #include "tcp_utils.h"
-#include <netdb.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <fcntl.h>
 
 ///https://en.wikipedia.org/wiki/Berkeley_sockets
 
@@ -56,7 +55,7 @@ int tcp_client_connect_u16(const char* host, uint16_t port)
 }
 
 
-int tcp_server_create(uint16_t port)
+int tcp_server_create(uint16_t port, bool set_O_NONBLOCK)
 {
 	int opt = 1;
 	struct sockaddr_in addr = {0};
@@ -89,11 +88,16 @@ int tcp_server_create(uint16_t port)
 		close(server_fd);
 		return -1;
 	}
+	if(set_O_NONBLOCK && fcntl(server_fd, F_SETFL, O_NDELAY) < 0)
+	{
+		close(server_fd);
+		return -1;
+	}
 
 	return server_fd;
 }
 
-int tcp_server_accept(int server_fd, struct sockaddr* addr, socklen_t* addrlen)
+int tcp_server_accept(int server_fd, struct sockaddr* addr, socklen_t* addrlen, bool set_O_NONBLOCK)
 {
 	int client_fd = accept(server_fd, addr, addrlen);
 	if(client_fd < 0)
@@ -101,6 +105,11 @@ int tcp_server_accept(int server_fd, struct sockaddr* addr, socklen_t* addrlen)
 		return -1;
 	}
 	if(fcntl(client_fd, F_SETFD, FD_CLOEXEC) < 0)
+	{
+		close(client_fd);
+		return -1;
+	}
+	if(set_O_NONBLOCK && fcntl(client_fd, F_SETFL, O_NDELAY) < 0)
 	{
 		close(client_fd);
 		return -1;
